@@ -40,8 +40,8 @@ public class coffeeConstructor {
 
     }*/
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) {}
+/*
         // Accessing static method without creating an object
         //coffeeConstructor.showCoffeeBrand();  // Output: Coffee Brand: Coffee Co.
         while (true) {
@@ -108,8 +108,8 @@ public class coffeeConstructor {
         // You can also change static variable directly using the class name
         CoffeeType.coffeeBrand = "Premium Coffee Co.";
         CoffeeType.showCoffeeBrand();  // Output: Coffee Brand: Premium Coffee Co.*/
-    }
-    private static void displayMenu() {
+
+    /*private static void displayMenu() {
         System.out.println("\n--- Coffee Menu ---");
         for (int i = 0; i < name.length; i++) {
             System.out.println((i + 1) + ". " + name[i]+"\t" + " - " + price[i] + " PHP");
@@ -149,5 +149,5 @@ public class coffeeConstructor {
         System.out.println(discount);
 
     }
-}
+}*/
 
