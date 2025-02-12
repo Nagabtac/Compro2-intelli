@@ -6,9 +6,7 @@
 6.) Compute the class average 
 7.) Prompt the user to add new student
 8.) End"""""
-import array
-#kahit ilagay niyo rito or yung summary ng program mo
-# Given student data
+
 students = {
     "Alice": [85, 90, 88, 92, 87],
     "Bob": [78, 75, 80, 82, 79],
@@ -21,51 +19,35 @@ def compute_average(grades):
     """Compute the average of a list of grades."""
     return sum(grades) / len(grades)
 
+
+
 def display_report():
     """Display the student grades report."""
-    print("\nStudent Grades Report")
-    print("=" * 40)
-    
-    # Compute student averages and store in a list
+    print("\nStudent Grades ")
+    print("------------------")
+    print("sorted")
     student_averages = [(name, compute_average(grades)) for name, grades in students.items()]
     
-    # Sort by average grade (highest to lowest)
-    student_averages.sort(key=lambda x: x[1], reverse=True)
+    print("Assorted")
+    for name, grades in students.items():
+        print(f"Name: {name} Grades: {grades}")
     
-    # Display student grades and averages
-    for name, avg in student_averages:
-        print(f"{name}: Grades = {students[name]}, Average = {avg:.2f}")
-    
-    # Find top-performing student
-    top_student = student_averages[0]
-    print("\nTop-Performing Student:")
-    print(f"{top_student[0]} with an average of {top_student[1]:.2f}")
-    
-    # Compute and display class average
+    print("\nStudent average")
     class_average = sum(avg for _, avg in student_averages) / len(student_averages)
     print(f"\nClass Average: {class_average:.2f}")
-    print("=" * 40)
 
-def add_student():
-    """Add a new student and update the report."""
-    name = input("\nEnter new student's name: ")
-    grades = list(map(int, input("Enter student's grade: ").split()))
-    
-    # Add new student to dictionary
-    students[name] = grades
-    print(f"{name} has been added successfully!")
-
-# Main program loop
-while True:
-    display_report()
-    
-    choice = input("\nDo you want to add a new student? (yes/no): ").strip().lower()
+def add_newStudent():
+    choice =input("Do you want to add new Student?")
     if choice == "yes":
-        add_student()
+        print("new Student added")
     if choice == "no":
-        print("\nFinal Report: ")
-        display_report()
-        break
-    else:
-        display_report()
-        break
+
+def main():
+    display_report()
+
+
+
+
+
+if __name__ == "__main__":
+    main()
