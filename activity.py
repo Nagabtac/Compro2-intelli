@@ -14,6 +14,9 @@ def inventory_report():
     #C
     #most_expensive= max(stock)
     print("\n MOST EXPENSIVE")
+    most_expensive_product = max(inventory, key=lambda x: x[2])
+    print(f"The most expensive product is {most_expensive_product[0]} priced at ${most_expensive_product[2]:.2f}")
+    
     
     
     
