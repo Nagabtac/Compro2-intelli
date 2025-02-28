@@ -21,7 +21,7 @@ public class HomeController {
         coffeeList.add(new Coffee(5, "Americano", "Robusta", "Large", 3.25, "Light", "Kenya", false, 15, Arrays.asList("Citrus", "Balanced"), "Drip"));
     }
 
-    @GetMapping("/")
+    @GetMapping("/SpringBootActivity")
     public String getCoffees(Model model) {
         model.addAttribute("coffees", coffeeList);
         return "index";
