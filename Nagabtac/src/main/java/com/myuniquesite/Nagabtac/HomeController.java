@@ -9,14 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
 @Controller
 public class HomeController {
-
-    public static void main(String[] args) {
-		SpringApplication.run(HomeController.class, args);
-	}
-
     private List<Coffee> coffeeList = new ArrayList<>();
 
     public HomeController() {
