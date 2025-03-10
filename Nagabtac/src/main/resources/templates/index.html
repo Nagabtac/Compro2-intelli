@@ -2,14 +2,16 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Student</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee List</title>
+    <link rel="stylesheet" type="text/css" href="/CSS/styles.css">
 </head>
 <body>
-<h1>Student List</h1>
+<h1>Coffee List</h1>
 <div>
-    <a href="/add">Add new student</a>
+    <a href="/add">Add new coffee</a>
 </div>
-<table>
+<table border="1">
     <thead>
     <tr>
         <th>ID</th>
@@ -19,19 +21,25 @@
         <th>Price</th>
         <th>Roast Level</th>
         <th>Origin</th>
-        <th>is Decaf</th>
+        <th>Is Decaf</th>
         <th>Stock</th>
         <th>Brew Method</th>
+        <th>Delete Button</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="student: ${students}">
-        <td th:text = "${Coffee.id}"></td>
-        <td th:text = "${Coffee.Name}"></td>
-        <td th:text = "${Coffee.Type}"></td>
-
-
-        <td><a th:href = "@{/delete(id=${student.id})}">Delete </a></td>
+    <tr th:each="coffee: ${coffees}">
+        <td th:text="${coffee.id}"></td>
+        <td th:text="${coffee.name}"></td>
+        <td th:text="${coffee.type}"></td>
+        <td th:text="${coffee.size}"></td>
+        <td th:text="${coffee.price}"></td>
+        <td th:text="${coffee.roastLevel}"></td>
+        <td th:text="${coffee.origin}"></td>
+        <td th:text="${coffee.isDecaf}"></td>
+        <td th:text="${coffee.stock}"></td>
+        <td th:text="${coffee.brewMethod}"></td>
+        <td><a th:href="@{/delete(id=${coffee.id})}">Delete</a></td>
     </tr>
     </tbody>
 </table>

@@ -39,4 +39,6 @@ public class Coffee {
     public int getStock() { return stock; }
     public List<String> getFlavorNotes() { return flavorNotes; }
     public String getBrewMethod() { return brewMethod; }
+
+    
 }
