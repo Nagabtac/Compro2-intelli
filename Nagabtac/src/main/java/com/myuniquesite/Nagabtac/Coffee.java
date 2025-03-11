@@ -40,5 +40,14 @@ public class Coffee {
     public List<String> getFlavorNotes() { return flavorNotes; }
     public String getBrewMethod() { return brewMethod; }
 
-    
+    public void setId(int newId) {
+        this.id = newId;
+    }
+    public void setName(String newName) {
+        this.name = newName;
+    }
+    public void setType(String newType) {
+        this.type = newType;
+    }
+
 }

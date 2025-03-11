@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
 @Controller
 public class HomeController {
     private List<Coffee> coffeeList = new ArrayList<>();
@@ -33,20 +34,34 @@ public class HomeController {
         coffeeList.removeIf(coffee -> coffee.getId() == id);
         return "redirect:/";
     }
-    // @PostMapping("/add")
-    // public String add(@RequestParam String name, @RequestParam String type,@RequestParam String size,@RequestParam String price,@RequestParam String roastLevel,@RequestParam String origin,@RequestParam boolean isDecaf,@RequestParam int stock,@RequestParam String brewMethod){
-    //     Coffee s = new Coffee(0, name, type, size, 0, roastLevel, origin, false, 0, null, brewMethod);
-    //     s.setId(coffeeList.getLast().getId() + 1);
-    //     s.setName(name);
-    //     s.setType(type);
-    //     s.setSize(size);
-    //     s.setRoastLevel(roastLevel);
-    //     s.setOrigin(origin );
-    //     s.setDecaf(isDecaf );
-    //     s.setStock(stock );
-    //     s.setBrewMethod(brewMethod );
-        
-    //     coffeeList.add(s);
-    //     return "redirect:/";
-    // }
+    @GetMapping("/add")
+    public String add(){
+        return "new";
+    }
+    @PostMapping("/save")
+    public String save(@RequestParam String name, @RequestParam String type,@RequestParam String size,@RequestParam String price,@RequestParam String roastLevel,@RequestParam String origin,@RequestParam boolean isDecaf,@RequestParam int stock,@RequestParam String brewMethod){
+        Coffee s = new Coffee(0, name, type, size, 0, roastLevel, origin, false, 0, null, brewMethod);
+        s.setId(coffeeList.getLast().getId() + 1);
+        s.setName(name);
+        s.setType(type);
+        //add new student to the array list
+        coffeeList.add(s);
+        return "redirect:/";
+    }
+//     @PostMapping("/add")
+//     public String add(@RequestParam String name, @RequestParam String type,@RequestParam String size,@RequestParam String price,@RequestParam String roastLevel,@RequestParam String origin,@RequestParam boolean isDecaf,@RequestParam int stock,@RequestParam String brewMethod){
+//         Coffee s = new Coffee(0, name, type, size, 0, roastLevel, origin, false, 0, null, brewMethod);
+//         s.setId(coffeeList.getLast().getId() + 1);
+//         s.setName(name);
+//         s.setType(type);
+//         s.setSize(size);
+//         s.setRoastLevel(roastLevel);
+//         s.setOrigin(origin );
+//         s.setDecaf(isDecaf );
+//         s.setStock(stock );
+//         s.setBrewMethod(brewMethod );
+//
+//         coffeeList.add(s);
+//         return "redirect:/";
+//     }
 }
