@@ -1,11 +1,17 @@
 def hello():
-    stack = []
-    stack.append("Hello")#adds "Hello" to the stack
-    stack.append("World")#adds "World" to the stack
+    queue = []
+    queue.append(3)#adds "Hello" to the queue
+    queue.append(5)
+    queue.append(9)
+    queue.append(12)
+    queue.append(15)
     
-    stack.pop()#Removes or pops the top element which is "World"
     
-    print(stack)#Prints the stack list
+    queue.pop(0)#Dequeues index[0] or 3
+    
+    print("element removed: ",queue[0])
+    
+    print("updated queue ", queue)#Prints the queue list
 
 def main():
     hello()
@@ -13,7 +19,9 @@ def main():
 if __name__ == "__main__":
     main()
 
-#1.  Undo Operation Using Stack: Implement an undo feature for a text editor using stack operations. Push changes to the stack, and pop them to undo.Expected:
-#stack.push("Change 1: Add 'Hello'") 
-#stack.push("Change 2: Add 'World'") 
-#stack.push("Change 3: Remove 'World")
+#1 Start
+#2.initialize a queue
+#3. enqueue elements 3, 5,9,12,15
+#4.dequeue index[3] or 3
+#5.print updated queue
+#6.End
