@@ -1,19 +1,27 @@
 def anagram():
-    stack1=[]
-    stack2=[]
-    word1=input("Enter first word: ")
-    word2=input("Enter first word: ")
-    
-    stack1.append(word1)
-    stack2.append(word2)
-    
+    stack=[]
+    isAnagram=True
     while(True):
-        if len(stack1) != len(stack2):
-            print("isAnagram: false")
-            break
+        word=input("Enter two words: ")
+        word.lower()
+        word=word.split() 
+        
+        if len(word) !=2:
+            print("Please make sure to enter two words")
         else:
-            print("isAnagram: True")
-            break
+            break    
+
+    stack.extend(word)
+    popped_word1=stack.pop()
+    popped_word2=stack.pop()
+    
+    if len(popped_word1) != len(popped_word2):
+        isAnagram=False
+    elif sorted(popped_word1 ) != sorted(popped_word2):
+        isAnagram= False
+    
+    print("The anagram word is: ",isAnagram)
+
 
 
 
@@ -25,10 +33,13 @@ if '__name__' == main():
 
     """
     1.start
-    2.initialize 2 stacks
+    2.initialize stack
     3.allow the user to input two words
-    4.push word1 to stack1 and word2 to stack2
-    5.measure each word length and if false return false and end program
-    6.pop each word and sort.
-    7.compare each word if theyre arreange in the same order if false return false
+    4. split the words to two to separate them
+    5.use extend instead of append since it is split
+    6.pop the two words and put them on two separate variable
+    7.if measure each word length and if false return false
+    8.else use sort and compare if false return false
+    9.print isAnagram
+    10.End
     """
