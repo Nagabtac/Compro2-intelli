@@ -8,9 +8,9 @@ import java.util.Map;
 @Controller
 public class FormController {
 
-    @GetMapping("/form")
+    @GetMapping("/")
     public String showForm() {
-        return "form"; // This should match your Thymeleaf template (e.g., form.html)
+        return "form";
     }
 
 
@@ -20,5 +20,9 @@ public class FormController {
         System.out.println("Form Data Received:");
         formData.forEach((key, value) -> System.out.println(key + ": " + value));
         return "Form submitted successfully! Check terminal for output.";
+    }
+    @GetMapping("/error")
+    public String error() {
+        return "error: WhiteLabel Warnings";
     }
 }
