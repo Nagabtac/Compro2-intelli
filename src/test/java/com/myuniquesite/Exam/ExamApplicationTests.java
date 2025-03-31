@@ -1,10 +1,10 @@
-package com.crude.review;
+package com.myuniquesite.Exam;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ReviewApplicationTests {
+class ExamApplicationTests {
 
 	@Test
 	void contextLoads() {

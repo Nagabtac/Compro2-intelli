@@ -1,13 +1,13 @@
-package com.crude.review;
+package com.myuniquesite.Exam;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ReviewApplication {
+public class ExamApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ReviewApplication.class, args);
+		SpringApplication.run(ExamApplication.class, args);
 	}
 
 }

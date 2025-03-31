@@ -1,0 +1,54 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Knewave&display=swap');
+
+:root{
+    --primary-color-- : #6F4E37;
+    --background-color--: #FFB22C;
+    --table-content-bg-color--:#FFF085;
+
+
+}
+a{
+    color: black;
+    text-decoration: none;
+    background-color: var(--primary-color--);
+    padding: 1px;
+    border-radius: 3px;
+    
+}
+.content{
+    justify-content: center;
+    text-align: center;
+}
+th{
+    color: aliceblue;
+    font-family: italic;
+}
+h1{
+    color: whitesmoke;
+    font-style: oblique;
+    background-color: #7C444F;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    border-radius: 8px;
+    font-family: "Knewave", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+thead{
+    background-color: var(--primary-color--);
+}
+td{
+    
+    background-color: var(--table-content-bg-color--);
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+   
+}
+body{
+    background-color: var(--background-color--);
+}

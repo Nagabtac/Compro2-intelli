@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link th:href="@{/css/style.css}" rel="stylesheet"> 
     <title>Coffee List</title>
 
 </head>
 <body>
+    <div class="content">
     <h1>Available Coffees</h1>
     <a href="/add">Add New Coffee</a>
-    <table border="1" id="coffeeTable">
+    <table class="center"  id="coffeeTable">
         <thead>
             <tr>
                 <th>ID</th>
@@ -44,5 +46,6 @@
             </tr>
         </tbody>
     </table>
+</div>
 </body>
 </html>
