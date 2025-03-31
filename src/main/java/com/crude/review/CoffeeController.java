@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class CoffeeController {
@@ -80,4 +81,24 @@ public class CoffeeController {
         coffeeList.removeIf(coffee -> coffee.getId() == id);
         return "redirect:/";
     }
+    
+
+     public List<Coffee> searchCoffees(String keyword, List<Coffee> Coffee){
+        if(keyword.trim().isEmpty()){
+            return Coffee;
+        }
+
+        return Coffee.stream().filter(s ->
+                s.getName().toLowerCase().contains(keyword.toLowerCase())
+                || s.getType().toLowerCase().contains(keyword.toLowerCase())
+                || s.getSize().toLowerCase().contains(keyword.toLowerCase())
+                || s.getRoastLevel().toLowerCase().contains(keyword.toLowerCase())
+                || s.getOrigin().toLowerCase().contains(keyword.toLowerCase())
+                || s.getSize().toLowerCase().contains(keyword.toLowerCase())
+                || s.getBrewMethod().toLowerCase().contains(keyword.toLowerCase())
+        ).collect(Collectors.toList());
+    }
+
 }
+
+
