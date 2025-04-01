@@ -41,6 +41,10 @@ public class Coffee {
     public List<String> getFlavorNotes() { return flavorNotes; }
     public String getBrewMethod() { return brewMethod; }
 
+    public void setId(int id){
+        this.id=id;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -55,5 +59,23 @@ public class Coffee {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+    public void setRoastLevel(String roastLevel) { 
+        this.roastLevel = roastLevel; 
+    }
+    public void setOrigin(String origin) { 
+        this.origin = origin; 
+    }
+    public void setDecaf(boolean isDecaf) { 
+        this.isDecaf = isDecaf; 
+    }
+    public void setStock(int stock) { 
+        this.stock = stock; 
+    }
+    public void setFlavorNotes(List<String> flavorNotes) { 
+        this.flavorNotes = flavorNotes; 
+    }
+    public void setBrewMethod(String brewMethod) { 
+        this.brewMethod = brewMethod; 
     }
 }

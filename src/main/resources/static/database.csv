@@ -1,0 +1,3 @@
+id,name,type,size,price,roastLevel,origin,isDecaf,stock,flavorNotes,brewMethod
+1,Espresso,Arabica,Small,3.50,Dark,Ethiopia,false,10,"Chocolate;Nutty",Espresso
+2,Latte,Arabica,Medium,4.50,Medium,Brazil,false,8,"Creamy;Sweet",Drip

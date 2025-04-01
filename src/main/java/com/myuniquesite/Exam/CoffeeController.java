@@ -14,10 +14,12 @@ import java.util.List;
 public class CoffeeController {
     private List<Coffee> coffeeList = new ArrayList<>();
 
+    CoffeeService coffeeService;
+
     public CoffeeController() {
-        coffeeList.add(new Coffee(1, "Espresso", "Arabica", "Small", 3.50, "Dark", "Ethiopia", false, 10, Arrays.asList("Chocolate", "Nutty"), "Espresso"));
-        coffeeList.add(new Coffee(2, "Latte", "Arabica", "Medium", 4.50, "Medium", "Brazil", false, 8, Arrays.asList("Creamy", "Sweet"), "Drip"));
+        coffeeService = new CoffeeService();
     }
+        
 
     @GetMapping("/")
     public String getCoffees(Model model) {
