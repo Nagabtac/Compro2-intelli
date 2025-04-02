@@ -29,21 +29,50 @@ public class Coffee {
         this.brewMethod = brewMethod;
     }
 
-    public int getId() { return id; }
-    public String getName() { return name; }
-    public String getType() { return type; }
-    public String getSize() { return size; }
-    public double getPrice() { return price; }
-    public String getRoastLevel() { return roastLevel; }
-    public String getOrigin() { return origin; }
-    public boolean isDecaf() { return isDecaf; }
-    public int getStock() { return stock; }
-    public List<String> getFlavorNotes() { return flavorNotes; }
-    public String getBrewMethod() { return brewMethod; }
-
-    public void setId(int id){
-        this.id=id;
+    public int getId() {
+        return id;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getRoastLevel() {
+        return roastLevel;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public boolean isDecaf() {
+        return isDecaf;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public List<String> getFlavorNotes() {
+        return flavorNotes;
+    }
+
+    public String getBrewMethod() {
+        return brewMethod;
+    }
+
 
     public void setName(String name) {
         this.name = name;
@@ -60,22 +89,28 @@ public class Coffee {
     public void setPrice(double price) {
         this.price = price;
     }
-    public void setRoastLevel(String roastLevel) { 
-        this.roastLevel = roastLevel; 
+
+    public void setRoastLevel(String roastLevel) {
+        this.roastLevel = roastLevel;
     }
-    public void setOrigin(String origin) { 
-        this.origin = origin; 
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
     }
-    public void setDecaf(boolean isDecaf) { 
-        this.isDecaf = isDecaf; 
+
+    public void setDecaf(boolean isDecaf) {
+        this.isDecaf = isDecaf;
     }
-    public void setStock(int stock) { 
-        this.stock = stock; 
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
-    public void setFlavorNotes(List<String> flavorNotes) { 
-        this.flavorNotes = flavorNotes; 
+
+    public void setFlavorNotes(List<String> flavorNotes) {
+        this.flavorNotes = flavorNotes;
     }
-    public void setBrewMethod(String brewMethod) { 
-        this.brewMethod = brewMethod; 
+
+    public void setBrewMethod(String brewMethod) {
+        this.brewMethod = brewMethod;
     }
 }

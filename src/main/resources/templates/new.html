@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>New Coffee</title>
+</head>
+<body>
+
+<h1>Add New Coffee</h1>
+
+<form action="/save" method="post">
+<label>Name: <input type="text" name="name" required></label>
+<label>Type: <input type="text" name="type" required></label>
+<label>Size: <input type="text" name="size" required>   </label>
+<label>Price: <input type="number" step="0.01" name="price" required></label>
+<label>Roast Level: <input type="text" name="roastLevel" required></label>
+<label>Origin: <input type="text" name="origin" required></label>
+<label>Decaf:
+    <select name="isDecaf">
+    <option value="true">Yes</option>
+    <option value="false">No</option>
+    </select>
+</label>
+<label>Stock: <input type="number" name="stock" required></label>
+<label>Flavor Notes (comma-separated): <input type="text" name="flavorNotes"></label>
+<label>Brew Method: <input type="text" name="brewMethod" required></label>
+
+<button type="submit">Add Coffee</button>
+</form>
+
+<a href="/">Back to List</a>
+
+</body>
+</html>

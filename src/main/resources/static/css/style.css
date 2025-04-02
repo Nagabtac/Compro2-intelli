@@ -5,6 +5,8 @@
     --primary-color-- : #6F4E37;
     --background-color--: #FFB22C;
     --table-content-bg-color--:#FFF085;
+    --secondary-color:#7C444F;
+    --radius:3px;
 
 
 }
@@ -13,7 +15,7 @@ a{
     text-decoration: none;
     background-color: var(--primary-color--);
     padding: 1px;
-    border-radius: 3px;
+    border-radius: var(--radius);
     
 }
 .content{
@@ -27,7 +29,7 @@ th{
 h1{
     color: whitesmoke;
     font-style: oblique;
-    background-color: #7C444F;
+    background-color: var(--secondary-color);
     width: 50%;
     margin-left: auto;
     margin-right: auto;
@@ -47,8 +49,19 @@ td{
 .center{
     margin-left: auto;
     margin-right: auto;
-   
 }
 body{
     background-color: var(--background-color--);
+}
+a:hover{
+    background-color: #2A4D69; /* Golden yellow */
+    color: #ffffff; /* White text */
+    transition: 0.3s ease-in-out;
+    border-color: rgb(132, 10, 10);
+    border-radius: var(--radius);
+    border-width: 2px;
+}
+form{
+    text-align: center;
+    margin-top: 40px;
 }
