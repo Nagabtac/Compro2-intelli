@@ -27,6 +27,7 @@ th{
     font-family: italic;
 }
 h1{
+  
     color: whitesmoke;
     font-style: oblique;
     background-color: var(--secondary-color);
@@ -62,6 +63,12 @@ a:hover{
     border-width: 2px;
 }
 form{
+  
     text-align: center;
     margin-top: 40px;
+
+}
+.search-bar,#new-coffee{
+    margin-right: 75px;
+    display: inline-block;
 }
