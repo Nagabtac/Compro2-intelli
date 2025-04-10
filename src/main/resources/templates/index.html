@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <link th:href="@{/css/style.css}" rel="stylesheet"> 
+    <script th:src="@{/js/main.js}"></script>
     <title>Coffee List</title>
 
 </head>
@@ -54,6 +55,8 @@
             </tr>
         </tbody>
     </table> 
+    <button th:onclick="changeText()" type="button">Update Coffee List</button>
+
     
 </div>
 </body>
