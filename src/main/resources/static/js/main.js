@@ -44,8 +44,8 @@ else {
 for( let i = 0; i <= 1000; i++){
     console.log('I LOVE: ' + i);
 }
-let i = 0;
+let i = 2;
 while(i <= 100){
-    console.log(i/2);
-    i++;
+    console.log(i);
+    i+=2;
 }
