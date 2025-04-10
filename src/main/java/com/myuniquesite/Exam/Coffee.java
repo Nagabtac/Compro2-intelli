@@ -1,18 +1,50 @@
 package com.myuniquesite.Exam;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 
 import java.util.List;
 
 public class Coffee {
+
     private int id;
+
+    @NotBlank(message = "Coffee name is required")
     private String name;
+
+    @NotBlank(message = "Type is required")
     private String type;
+
+    @NotBlank(message = "Size is required")
     private String size;
+
+    @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than 0")
     private double price;
+
+    @NotBlank(message = "Roast level is required")
     private String roastLevel;
+
+    @NotBlank(message = "Origin is required")
     private String origin;
+
+    // No annotation needed here; a boolean is always either true or false
     private boolean isDecaf;
+
+    @Min(value = 0, message = "Stock cannot be negative")
     private int stock;
-    private List<String> flavorNotes;
+
+    @NotNull(message = "Flavor notes must not be null")
+    @Size(min = 1, message = "At least one flavor note is required")
+    private List<@NotBlank(message = "Flavor note cannot be blank") String> flavorNotes;
+
+    @NotBlank(message = "Brew method is required")
     private String brewMethod;
 
     public Coffee(int id, String name, String type, String size, double price, String roastLevel, String origin, boolean isDecaf, int stock, List<String> flavorNotes, String brewMethod) {
