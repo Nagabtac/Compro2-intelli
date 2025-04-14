@@ -62,11 +62,9 @@ a:hover{
     border-radius: var(--radius);
     border-width: 2px;
 }
-form{
-  
-    text-align: center;
-    margin-top: 40px;
 
+label{
+    display: block !important;
 }
 .search-bar,#new-coffee{
     margin-right: 75px;

@@ -3,9 +3,13 @@ package com.myuniquesite.Exam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.validation.Valid;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -137,5 +141,15 @@ public class HomeController {
         csvDataService.saveToCsv(coffeeList);
 
         return "redirect:/";
+    }
+
+    @PostMapping("/register")
+    public String submitForm(@Valid @ModelAttribute("validation")  Model model, BindingResult bindingResult) {
+        // Process the form submission and save the coffee object to the list or database
+        if(bindingResult.hasErrors()) {
+            return "new"; // Return to the form view if there are validation errors
+        }else{
+            return "register_success";
+        }
     }
 }

@@ -8,11 +8,17 @@
 <body>
 
 <h1>Add New Coffee</h1>
-
+<div class="inline-form">
 <form action="/save" method="post">
 <label>Name: <input type="text" name="name" required></label>
 <label>Type: <input type="text" name="type" required></label>
-<label>Size: <input type="text" name="size" required>   </label>
+<label>> Size:  
+    <select name="size" required>
+        <option value="small">Small</option>
+        <option value="medium">Medium</option>
+        <option value="large">Large</option>
+    </select>
+</label>
 <label>Price: <input type="number" step="0.01" name="price" required></label>
 <label>Roast Level: <input type="text" name="roastLevel" required></label>
 <label>Origin: <input type="text" name="origin" required></label>
@@ -30,6 +36,7 @@
 </form>
 
 <a href="/">Back to List</a>
+</div>
 
 </body>
 </html>

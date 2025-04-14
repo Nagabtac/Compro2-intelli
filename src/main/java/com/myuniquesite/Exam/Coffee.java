@@ -16,6 +16,7 @@ public class Coffee {
 
     private int id;
 
+    @Size(min = 2, max = 20, message = "Coffee name must be between 2 and 20 characters")
     @NotBlank(message = "Coffee name is required")
     private String name;
 
