@@ -16,33 +16,32 @@ public class Coffee {
 
     private int id;
 
-    @Size(min = 2, max = 20, message = "Coffee name must be between 2 and 20 characters")
     @NotBlank(message = "Coffee name is required")
     private String name;
 
     @NotBlank(message = "Type is required")
+    @Size(min = 2, max = 50, message = "name must be between 2 and 50 characters")
     private String type;
 
     @NotBlank(message = "Size is required")
     private String size;
 
-    @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than 0")
+    @DecimalMin(value = "0.1", inclusive = false, message = "Price must be greater than 0")
     private double price;
 
     @NotBlank(message = "Roast level is required")
     private String roastLevel;
 
     @NotBlank(message = "Origin is required")
+    @Size(max = 100, message = "Origin cannot be more than 100")
     private String origin;
 
     // No annotation needed here; a boolean is always either true or false
     private boolean isDecaf;
 
-    @Min(value = 0, message = "Stock cannot be negative")
+    @Min(value = 0, message = "Stock cannot be 0")
     private int stock;
 
-    @NotNull(message = "Flavor notes must not be null")
-    @Size(min = 1, message = "At least one flavor note is required")
     private List<@NotBlank(message = "Flavor note cannot be blank") String> flavorNotes;
 
     @NotBlank(message = "Brew method is required")
@@ -61,6 +60,8 @@ public class Coffee {
         this.flavorNotes = flavorNotes;
         this.brewMethod = brewMethod;
     }
+
+    
 
     public int getId() {
         return id;

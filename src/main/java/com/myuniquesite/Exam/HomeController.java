@@ -70,29 +70,22 @@ public class HomeController {
 
    
     @GetMapping("/add")
-    public String addCoffee() {
+    public String addCoffee(Model model) {
+        model.addAttribute("coffee", new Coffee());
         return "new";
     }
 
     @PostMapping("/save")
-    public String saveCoffee(@RequestParam String name,
-                             @RequestParam String type,
-                             @RequestParam String size,
-                             @RequestParam double price,
-                             @RequestParam String roastLevel,
-                             @RequestParam String origin,
-                             @RequestParam boolean isDecaf,
-                             @RequestParam int stock,
-                             @RequestParam List<String> flavorNotes,
-                             @RequestParam String brewMethod) {
-
+    public String saveCoffee(@ModelAttribute @Valid Coffee coffee, BindingResult bindingResult) {
 
         int newId = coffeeList.get(coffeeList.size() - 1).getId() + 1;
-        coffeeList.add(new Coffee(newId, name, type, size, price, roastLevel, origin, isDecaf, stock, flavorNotes, brewMethod));
+        coffeeList.add(new Coffee(newId, coffee.getName(), coffee.getType(), coffee.getSize(), coffee.getPrice(), coffee.getRoastLevel(), coffee.getOrigin(), coffee.isDecaf(), coffee.getStock(), coffee.getFlavorNotes(), coffee.getBrewMethod()));
 
     
         csvDataService.saveToCsv(coffeeList);
-
+    if (bindingResult.hasErrors()) {
+            return "new";
+        }
         return "redirect:/";
     }
 
@@ -141,15 +134,5 @@ public class HomeController {
         csvDataService.saveToCsv(coffeeList);
 
         return "redirect:/";
-    }
-
-    @PostMapping("/register")
-    public String submitForm(@Valid @ModelAttribute("validation")  Model model, BindingResult bindingResult) {
-        // Process the form submission and save the coffee object to the list or database
-        if(bindingResult.hasErrors()) {
-            return "new"; // Return to the form view if there are validation errors
-        }else{
-            return "register_success";
-        }
     }
 }

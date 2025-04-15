@@ -8,35 +8,47 @@
 <body>
 
 <h1>Add New Coffee</h1>
-<div class="inline-form">
-<form action="/save" method="post">
-<label>Name: <input type="text" name="name" required></label>
-<label>Type: <input type="text" name="type" required></label>
-<label>> Size:  
-    <select name="size" required>
-        <option value="small">Small</option>
-        <option value="medium">Medium</option>
-        <option value="large">Large</option>
-    </select>
-</label>
-<label>Price: <input type="number" step="0.01" name="price" required></label>
-<label>Roast Level: <input type="text" name="roastLevel" required></label>
-<label>Origin: <input type="text" name="origin" required></label>
-<label>Decaf:
-    <select name="isDecaf">
+
+<form action="/save" method="post" >
+
+<label for="name">Name:</label>
+<input type="text" id="name" th:field="*{name}" >
+<p class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+
+<label for="type">Type:</label>
+<input type="text" id="type" th:field="*{type}" >
+
+<label for="size">Size:</label>
+<input type="text" id="size" th:field="*{size}" >
+
+<label for="price">Price:</label>
+<input type="number" id="price"th:field="*{price}" step="0.01" >
+
+<label for="roastLevel">Roast Level:</label>
+<input type="text" id="roastLevel" th:field="*{roastLevel}" >
+
+<label for="origin">Origin:</label>
+<input type="text" id="origin" th:field="*{origin}" >
+
+<label for="isDecaf">Decaf:</label>
+<select id="isDecaf" name="isDecaf" >
     <option value="true">Yes</option>
     <option value="false">No</option>
-    </select>
-</label>
-<label>Stock: <input type="number" name="stock" required></label>
-<label>Flavor Notes (comma-separated): <input type="text" name="flavorNotes"></label>
-<label>Brew Method: <input type="text" name="brewMethod" required></label>
+</select>
+
+<label for="stock">Stock:</label>
+<input type="number" id="stock" th:field="*{stock}" >
+
+<label for="flavorNotes">Flavor Notes:</label>
+<input type="text" id="flavorNotes" th:field="*{flavorNotes}">
+
+<label for="brewMethod">Brew Method:</label>
+<input type="text" id="brewMethod" th:field="*{brewMethod}" >
 
 <button type="submit">Add Coffee</button>
 </form>
 
 <a href="/">Back to List</a>
-</div>
 
 </body>
 </html>
