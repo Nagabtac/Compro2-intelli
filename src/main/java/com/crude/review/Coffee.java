@@ -1,16 +1,28 @@
 package com.crude.review;
 
 import java.util.List;
-
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.ValidatorFactory;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Size;
 public class Coffee {
-    private int id;
+
+   
+    private int id; 
+    @Size(min = 1,max = 50, message = "Name must be between 1 and 50 characters")
     private String name;
+
     private String type;
     private String size;
+    @DecimalMin(value = "0.01", message = "Price must be greater than 0")
     private double price;
     private String roastLevel;
+    @Size(max = 100, message = "Origin must be below 100 characters")
     private String origin;
     private boolean isDecaf;
+    @Size(min = 0, message = "Stock must be greater than 0")
     private int stock;
     private List<String> flavorNotes;
     private String brewMethod;

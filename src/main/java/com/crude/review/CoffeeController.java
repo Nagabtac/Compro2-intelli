@@ -26,7 +26,9 @@ public class CoffeeController {
     }
 
     @GetMapping("/add")
-    public String showAddForm() {
+    public String showAddForm(Model model) {
+        Coffee coffee = new Coffee(0, null, null, null, 0, null, null, false, 0, null, null); 
+        model.addAttribute("coffee", coffee);
         return "add";
     }
 
