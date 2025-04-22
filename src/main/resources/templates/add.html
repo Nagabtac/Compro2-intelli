@@ -2,23 +2,60 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Add Coffee</title>
+    <link th:href="@{/static/style.css}" rel="stylesheet" />
 </head>
 <body>
 <h1>Add a New Coffee</h1>
 
 
-<form action="/add" method="post" th:action="@{/add}" th:object="${coffee}">
-    <label>Name: <input type="text" th:field="*{name}" required></label>
-    <label>Type: <input type="text" th:field="*{type}" required></label>
-    <label>Size: <input type="text" th:field="*{size}" required></label>
-    <label>Price: <input type="number" step="0.01" th:field="*{price}" required></label>
-    <label>Roast Level: <input type="text" th:field="*{roastLevel}" required></label>
-    <label>Origin: <input type="text" th:field="*{origin}" required></label>
-    <label>Decaf: <input type="checkbox" th:field="*{isDecaf}" value="true"></label>
-    <label>Stock: <input type="number" th:field="*{stock}" required></label>
-    <label>Flavor Notes (comma-separated): <input type="text" th:field="*{flavorNotes}" required></label>
-    <label>Brew Method: <input type="text" th:field="*{brewMethod}" required></label>
+<form action="/add" method="post">
+
+    <label>Name: <input type="text" name="name" ></label>
+
+    <label for="coffeeType">Type</label>
+<select name="coffeeType" id="coffeeType">
+<option value="espresso">Espresso</option>
+<option value="latte">Latte</option>
+<option value="cappuccino">Cappuccino</option>
+<option value="flat_white">Flat White</option>
+<option value="iced_coffee">Iced Coffee</option>
+<option value="cold_brew">Cold Brew</option>
+<option value="americano">Americano</option>
+<option value="macchiato">Macchiato</option>
+<option value="mocha">Mocha</option>
+<option value="affogato">Affogato</option>
+</select>
+
+    <label for="size" >size</label>
+    <select name="size" id="size">
+        <option value="small">Small</option>
+        <option value="medium">Medium</option>
+        <option value="large">Large</option>
+    </select>
+
+    <label>Price: <input type="number" step="0.01" name="price" ></label>
+    
+<label for="roastLevel">roastLevel:</label>
+<select name="roastLevel" id="roastLevel">
+<option value="light">Light</option>
+<option value="medium">Medium</option>
+<option value="dark">Dark</option>
+</select>
+
+    <label>Origin: 
+        <input type="text" name="origin" ></label>
+    <label>
+        <label for="isDecaf">isDecaf</label>
+        <input type="radio" name="isDecaf" value="true">True</input>
+        <input type="radio" name="isDecaf" value="false">False</input>
+    </label>
+    <label>Stock: <input type="number" name="stock" ></label>
+    <label>Flavor Notes (comma-separated): <input type="text" name="flavorNotes"></label>
+    <label>Brew Method: <input type="text" name="brewMethod" ></label>
     <button type="submit">Add Coffee</button>
 </form>
+
+<a href="/">Back to List</a>
+
 </body>
 </html>

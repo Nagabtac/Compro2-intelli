@@ -26,9 +26,7 @@ public class CoffeeController {
     }
 
     @GetMapping("/add")
-    public String showAddForm(Model model) {
-        Coffee coffee = new Coffee(0, null, null, null, 0, null, null, false, 0, null, null); 
-        model.addAttribute("coffee", coffee);
+    public String showAddForm() {
         return "add";
     }
 
@@ -44,12 +42,13 @@ public class CoffeeController {
             @RequestParam int stock,
             @RequestParam String flavorNotes,
             @RequestParam String brewMethod
-    ) {
-        int newId = coffeeList.size() + 1;
-        List<String> notesList = Arrays.asList(flavorNotes.split(","));
-        coffeeList.add(new Coffee(newId, name, type, size, price, roastLevel, origin, isDecaf, stock, notesList, brewMethod));
-        return "redirect:/";
-    }
+) {
+    int newId = coffeeList.size() + 1;
+    Coffee newCoffee = new Coffee(newId, name, type, size, price, roastLevel, origin, isDecaf, stock, Arrays.asList(flavorNotes.split(",")), brewMethod);
+    coffeeList.add(newCoffee);
+    return "redirect:/";
+}
+        
 
 
     @GetMapping("/edit")

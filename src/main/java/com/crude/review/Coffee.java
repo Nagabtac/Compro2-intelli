@@ -9,11 +9,9 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Size;
 public class Coffee {
 
-   
     private int id; 
     @Size(min = 1,max = 50, message = "Name must be between 1 and 50 characters")
     private String name;
-
     private String type;
     private String size;
     @DecimalMin(value = "0.01", message = "Price must be greater than 0")
@@ -56,16 +54,40 @@ public class Coffee {
     public void setName(String name) {
         this.name = name;
     }
-
+    
     public void setType(String type) {
         this.type = type;
     }
-
+    
     public void setSize(String size) {
         this.size = size;
     }
-
+    
     public void setPrice(double price) {
         this.price = price;
+    }
+    
+    public void setRoastLevel(String roastLevel) {
+        this.roastLevel = roastLevel;
+    }
+    
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+    
+    public void setDecaf(boolean isDecaf) {
+        this.isDecaf = isDecaf;
+    }
+    
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+    
+    public void setFlavorNotes(List<String> flavorNotes) {
+        this.flavorNotes = flavorNotes;
+    }
+    
+    public void setBrewMethod(String brewMethod) {
+        this.brewMethod = brewMethod;
     }
 }
