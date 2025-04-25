@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpSession;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +22,11 @@ public class CoffeeController {
     }
 
     @GetMapping("/")
-    public String getCoffees(Model model) {
+    public String getCoffees(Model model,HttpSession request) {
+        AppUser currentUser = (AppUser) request.getAttribute("user");
+        if(currentUser == null) {
+            return "redirect:/login"; // Redirect to login if not authenticated
+        }
         model.addAttribute("coffees", coffeeList);
         return "index.html";
     }
