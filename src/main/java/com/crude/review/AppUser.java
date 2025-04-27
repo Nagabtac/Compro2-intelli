@@ -8,7 +8,7 @@ public class AppUser {
     @NotBlank(message = "Password is required")
     private String password;
     private String email;
-    private String role; // e.g., "USER", "ADMIN"
+    private String role; 
 
 
     public String getUsername() {

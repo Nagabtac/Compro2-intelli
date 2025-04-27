@@ -32,28 +32,27 @@ public class CoffeeController {
         model.addAttribute("coffees", coffeeList);
         return "index"; // <<< FIXED: no ".html"
     }
-    
-@GetMapping("/add")
+    @GetMapping("/add")
 public String showAddForm(Model model) {
-    model.addAttribute("coffee", new Coffee(0, "", "", "", 0.0, "", "", false, 0, List.of(), ""));
-    return "add";
-}
-
-@PostMapping("/add")
+    model.addAttribute("coffee", new Coffee()); // Provide an empty Coffee object for form binding
+    return "add"; // Ensure this matches your Thymeleaf template name
+}@PostMapping("/add")
 public String addCoffee(
         @Valid @ModelAttribute("coffee") Coffee coffee,
         BindingResult bindingResult,
         Model model
 ) {
     if (bindingResult.hasErrors()) {
-        return "add"; // stay on the add page if validation errors exist
+        model.addAttribute("coffee", coffee);
+        System.out.println("Validation errors: " + bindingResult.getAllErrors()); // ✅ Debug output
+        return "add";
     }
 
-    // no errors → save coffee
     coffee.setId(coffeeList.size() + 1);
     coffeeList.add(coffee);
     return "redirect:/";
 }
+
 
 
 

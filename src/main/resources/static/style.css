@@ -27,6 +27,7 @@ body {
 h1 {
     font-size: 2rem;
     margin-bottom: 1rem;
+    background-color: rgba(252, 252, 50, 0.944);
 }
 
 a.button{

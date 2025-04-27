@@ -6,11 +6,16 @@ import jakarta.validation.Validation;
 import jakarta.validation.ValidatorFactory;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.NotNull;
+
 public class Coffee {
 
     private int id; 
-    @Size(min = 1,max = 50, message = "Name must be between 1 and 50 characters")
+    @NotBlank(message = "Name cannot be blank")
     private String name;
     private String type;
     private String size;
@@ -20,10 +25,11 @@ public class Coffee {
     @Size(max = 100, message = "Origin must be below 100 characters")
     private String origin;
     private boolean isDecaf;
-    @Size(min = 0, message = "Stock must be greater than 0")
+    @Min(value = 1, message = "Stock must be greater than 0")
     private int stock;
     private List<String> flavorNotes;
     private String brewMethod;
+    public Coffee() {}
 
     public Coffee(int id, String name, String type, String size, double price, String roastLevel, String origin, boolean isDecaf, int stock, List<String> flavorNotes, String brewMethod) {
         this.id = id;

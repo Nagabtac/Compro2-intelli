@@ -5,57 +5,88 @@
     <link th:href="@{/static/style.css}" rel="stylesheet" />
 </head>
 <body>
-<h1>Add a New Coffee</h1>
+    <form action="/add" method="POST" th:object="${coffee}">
+        {% comment %} <p th:if="${error}">Please correct the following errors:</p> {% endcomment %}
+        <h2>Add a New Coffee</h2>
 
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" th:field="*{name}" id="name" />
+            <p class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+        </div>
 
-<form action="/add" method="post">
+        <div>
+            <label for="price">Price:</label>
+            <input type="number" step="0.01" th:field="*{price}" id="price" value="0.01"  />
+            <p class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
+        </div>
+        
+        <div>
+            <label for="origin">Origin:</label>
+            <input type="text" th:field="*{origin}" id="origin" />
+            <p class="error" th:if="${#fields.hasErrors('origin')}" th:errors="*{origin}"></p>
+        </div>
+        
+        <div>
+            <label for="stock">Stock:</label>
+            <input type="number" th:field="*{stock}" id="stock" value="0" />
+            <p class="error" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"></p>
+        </div>
+        
 
-    <label>Name: <input type="text" name="name" ></label>
+        <div>
+            <label for="coffeeType">Type</label>
+            <select name="coffeeType" id="coffeeType">
+                <option value="espresso">Espresso</option>
+                <option value="latte">Latte</option>
+                <option value="cappuccino">Cappuccino</option>
+                <option value="flat_white">Flat White</option>
+                <option value="iced_coffee">Iced Coffee</option>
+                <option value="cold_brew">Cold Brew</option>
+                <option value="americano">Americano</option>
+                <option value="macchiato">Macchiato</option>
+                <option value="mocha">Mocha</option>
+                <option value="affogato">Affogato</option>
+            </select>
+        </div>
 
-    <label for="coffeeType">Type</label>
-<select name="coffeeType" id="coffeeType">
-<option value="espresso">Espresso</option>
-<option value="latte">Latte</option>
-<option value="cappuccino">Cappuccino</option>
-<option value="flat_white">Flat White</option>
-<option value="iced_coffee">Iced Coffee</option>
-<option value="cold_brew">Cold Brew</option>
-<option value="americano">Americano</option>
-<option value="macchiato">Macchiato</option>
-<option value="mocha">Mocha</option>
-<option value="affogato">Affogato</option>
-</select>
+        <div>
+            <label for="size">Size</label>
+            <select name="size" id="size">
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+            </select>
+        </div>
 
-    <label for="size" >size</label>
-    <select name="size" id="size">
-        <option value="small">Small</option>
-        <option value="medium">Medium</option>
-        <option value="large">Large</option>
-    </select>
+        <div>
+            <label for="roastLevel">Roast Level:</label>
+            <select name="roastLevel" id="roastLevel">
+                <option value="light">Light</option>
+                <option value="medium">Medium</option>
+                <option value="dark">Dark</option>
+            </select>
+        </div>
 
-    <label>Price: <input type="number" step="0.01" name="price" ></label>
-    
-<label for="roastLevel">roastLevel:</label>
-<select name="roastLevel" id="roastLevel">
-<option value="light">Light</option>
-<option value="medium">Medium</option>
-<option value="dark">Dark</option>
-</select>
+        <div>
+            <label for="isDecaf">Is Decaf:</label>
+            <input type="radio" name="isDecaf" value="true">True</input>
+            <input type="radio" name="isDecaf" value="false">False</input>
+        </div>
 
-    <label>Origin: 
-        <input type="text" name="origin" ></label>
-    <label>
-        <label for="isDecaf">isDecaf</label>
-        <input type="radio" name="isDecaf" value="true">True</input>
-        <input type="radio" name="isDecaf" value="false">False</input>
-    </label>
-    <label>Stock: <input type="number" name="stock" ></label>
-    <label>Flavor Notes (comma-separated): <input type="text" name="flavorNotes"></label>
-    <label>Brew Method: <input type="text" name="brewMethod" ></label>
-    <button type="submit">Add Coffee</button>
-</form>
+        <div>
+            <label for="flavorNotes">Flavor Notes (comma-separated):</label>
+            <input type="text" name="flavorNotes" id="flavorNotes" />
+        </div>
 
-<a href="/">Back to List</a>
+        <div>
+            <label for="brewMethod">Brew Method:</label>
+            <input type="text" name="brewMethod" id="brewMethod" />
+        </div>
 
+        <input type="submit" value="Add Coffee" />
+    </form>
+
+    <a href="/">Back to List</a>
 </body>
 </html>
