@@ -18,44 +18,35 @@ import jakarta.validation.Valid;
 
 @Controller
 public class AuthController {
-    
-    // @RequestMapping(value = "/login", method ={ RequestMethod.GET,RequestMethod.POST})//GetMapping("/login") && //PostMapping("/login")
-    //     public String login(HttpServletRequest request) {
-    //         if(request.getMethod().equalsIgnoreCase("GET")){
-    //             // Logic for handling login
-    //         return "login"; // Return the name of the login view (e.g., login.html)
-    //         }else if(request.getMethod().equalsIgnoreCase("POST")){
-            
-    //         }return "redirect:/index";
-    //     }
-    //OR
 
     @GetMapping("/login")
-    public String login(Model model){
-            model.addAttribute("user", new AppUser()); // Add a login form object to the model
-            
-            return "Login"; // Return the name of the login view (e.g., login.html)
+    public String login(Model model) {
+        model.addAttribute("user", new AppUser()); // Add a login form object to the model
+        return "login"; // Return the name of the login view (e.g., login.html)
     }
 
     @PostMapping("/login")
-    public String authenticate(@ModelAttribute("user")@Valid AppUser user, BindingResult bindingresult, HttpSession request, Model model) {
+    public String authenticate(@ModelAttribute("user") @Valid AppUser user, BindingResult bindingresult, HttpSession request, Model model) {
         if (bindingresult.hasErrors()) {
             return "login";
-    
-    //authenticate 
-    String dummyUsername = "admin";
-    String password = "password";
-    if(user.getUsername().equals(dummyUsername) && user.getPassword().equals(password)){
+        } // <<== THIS closing bracket was missing!
 
-        request.setAttribute("user", user); // Store the user in the session
-        return "/index"; // Redirect to the index page after successful login
+        // authenticate
+        String dummyUsername = "admin";
+        String password = "password";
+
+        if (user.getUsername().equals(dummyUsername) && user.getPassword().equals(password)) {
+            request.setAttribute("user", user); // Store the user in the session
+            return "index"; // Redirect to the index page after successful login
+        }
+
+        String error = "Hacker ka no? Tawag na ako pulis.";
+        model.addAttribute("error", error); // Add an error message to the model
+        return "login"; // You should return to login page if authentication fails
     }
-    String Error ="Hacker ka no? Tawag na ako pulis.";
-    model.addAttribute("error", Error); // Add an error message to the model
-}
 
     @GetMapping("/logout")
-    public String  logout(HttpSession request){
+    public String logout(HttpSession request) {
         request.invalidate();
         return "redirect:/login"; // Redirect to the login page after logout
     }

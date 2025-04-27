@@ -90,4 +90,8 @@ public class Coffee {
     public void setBrewMethod(String brewMethod) {
         this.brewMethod = brewMethod;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

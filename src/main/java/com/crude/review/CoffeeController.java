@@ -2,11 +2,14 @@ package com.crude.review;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,41 +23,38 @@ public class CoffeeController {
         coffeeList.add(new Coffee(1, "Espresso", "Arabica", "Small", 3.50, "Dark", "Ethiopia", false, 10, Arrays.asList("Chocolate", "Nutty"), "Espresso"));
         coffeeList.add(new Coffee(2, "Latte", "Arabica", "Medium", 4.50, "Medium", "Brazil", false, 8, Arrays.asList("Creamy", "Sweet"), "Drip"));
     }
-
     @GetMapping("/")
-    public String getCoffees(Model model,HttpSession request) {
+    public String getCoffees(Model model, HttpSession request) {
         AppUser currentUser = (AppUser) request.getAttribute("user");
-        if(currentUser == null) {
+        if (currentUser == null) {
             return "redirect:/login"; // Redirect to login if not authenticated
         }
         model.addAttribute("coffees", coffeeList);
-        return "index.html";
+        return "index"; // <<< FIXED: no ".html"
     }
+    
+@GetMapping("/add")
+public String showAddForm(Model model) {
+    model.addAttribute("coffee", new Coffee(0, "", "", "", 0.0, "", "", false, 0, List.of(), ""));
+    return "add";
+}
 
-    @GetMapping("/add")
-    public String showAddForm() {
-        return "add";
-    }
-
-    @PostMapping("/add")
-    public String addCoffee(
-            @RequestParam String name,
-            @RequestParam String type,
-            @RequestParam String size,
-            @RequestParam double price,
-            @RequestParam String roastLevel,
-            @RequestParam String origin,
-            @RequestParam boolean isDecaf,
-            @RequestParam int stock,
-            @RequestParam String flavorNotes,
-            @RequestParam String brewMethod
+@PostMapping("/add")
+public String addCoffee(
+        @Valid @ModelAttribute("coffee") Coffee coffee,
+        BindingResult bindingResult,
+        Model model
 ) {
-    int newId = coffeeList.size() + 1;
-    Coffee newCoffee = new Coffee(newId, name, type, size, price, roastLevel, origin, isDecaf, stock, Arrays.asList(flavorNotes.split(",")), brewMethod);
-    coffeeList.add(newCoffee);
+    if (bindingResult.hasErrors()) {
+        return "add"; // stay on the add page if validation errors exist
+    }
+
+    // no errors → save coffee
+    coffee.setId(coffeeList.size() + 1);
+    coffeeList.add(coffee);
     return "redirect:/";
 }
-        
+
 
 
     @GetMapping("/edit")
