@@ -1,4 +1,4 @@
-package com.crude;
+package com.crude.review;
 import com.crude.review.Coffee;
     import org.springframework.stereotype.Service;
     import java.io.FileWriter;

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,15 +28,15 @@ public class CoffeeController {
     public String getCoffees(Model model, HttpSession request) {
         AppUser currentUser = (AppUser) request.getAttribute("user");
         if (currentUser == null) {
-            return "redirect:/login"; // Redirect to login if not authenticated
+            return "redirect:/login"; 
         }
         model.addAttribute("coffees", coffeeList);
-        return "index"; // <<< FIXED: no ".html"
+        return "index"; 
     }
     @GetMapping("/add")
 public String showAddForm(Model model) {
-    model.addAttribute("coffee", new Coffee()); // Provide an empty Coffee object for form binding
-    return "add"; // Ensure this matches your Thymeleaf template name
+    model.addAttribute("coffee", new Coffee()); 
+    return "add"; 
 }@PostMapping("/add")
 public String addCoffee(
         @Valid @ModelAttribute("coffee") Coffee coffee,
@@ -44,7 +45,7 @@ public String addCoffee(
 ) {
     if (bindingResult.hasErrors()) {
         model.addAttribute("coffee", coffee);
-        System.out.println("Validation errors: " + bindingResult.getAllErrors()); // ✅ Debug output
+        System.out.println("Validation errors: " + bindingResult.getAllErrors()); 
         return "add";
     }
 

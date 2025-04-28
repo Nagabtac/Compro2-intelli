@@ -3,7 +3,7 @@
     --background-color--: #FFB22C;
     --table-content-bg-color--:#FFF085;
     --secondary-color:#7C444F;
-    --radius:3px;
+    --radius:5px;
 
 
 }
@@ -23,6 +23,10 @@ body {
 h1 {
     font-size: 2rem;
     margin-bottom: 1rem;
+    text-align: center;
+    background-color: var(--secondary-color);
+    padding: 20px;
+    border-radius: var(--radius);
 
 }
 

@@ -6,6 +6,7 @@
     <link th:href="@{/static/style.css}" rel="stylesheet" />
 </head>
 <body>
+    <a id="button" href="/logout">Logout</a>
 <form action="/update" method="post">
     <input type="hidden" name="id" th:value="${coffee.id}">
     <label>Name: <input type="text" name="name" th:value="${coffee.name}" required></label><br>

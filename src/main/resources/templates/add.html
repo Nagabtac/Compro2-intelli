@@ -5,8 +5,8 @@
     <link th:href="@{/static/style.css}" rel="stylesheet" />
 </head>
 <body>
+    <a id="button" href="/logout">Logout</a>
     <form action="/add" method="POST" th:object="${coffee}">
-        {% comment %} <p th:if="${error}">Please correct the following errors:</p> {% endcomment %}
         <h2>Add a New Coffee</h2>
 
         <div>

@@ -29,6 +29,7 @@ public class Coffee {
     private int stock;
     private List<String> flavorNotes;
     private String brewMethod;
+    
     public Coffee() {}
 
     public Coffee(int id, String name, String type, String size, double price, String roastLevel, String origin, boolean isDecaf, int stock, List<String> flavorNotes, String brewMethod) {
