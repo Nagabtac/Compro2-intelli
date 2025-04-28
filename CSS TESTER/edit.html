@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Coffee</title>
+    <link rel="stylesheet" href="/CSS TESTER/style.css">
+</head>
+<body>
+    <div class="content">
+    <a id="button" href="/logout">Logout</a>
+<form action="/update" method="post">
+    
+    <input type="hidden" name="id" th:value="${coffee.id}">
+    <div>
+    <label>Name: <input type="text" name="name" th:value="${coffee.name}" required></label>
+</div> 
+
+<div>
+    <label>Type: <input type="text" name="type" th:value="${coffee.type}" required></label>
+   </div>
+   <div>
+    <label>Size: <input type="text" name="size" th:value="${coffee.size}" required></label>
+</div>
+<div>
+    <label>Price: <input type="number" step="0.01" name="price" th:value="${coffee.price}" required></label>
+    
+</div>
+<button type="submit">Update</button>
+</form>
+<a href="/">Back to List</a>
+</div>
+</body>
+</html>

@@ -1,18 +1,21 @@
-:root{
+:root{ 
     --primary-color-- : #6F4E37;
     --background-color--: #FFB22C;
     --table-content-bg-color--:#FFF085;
     --secondary-color:#7C444F;
     --radius:5px;
-
-
 }
 
 body {
     background-color: var(--background-color--);
-    color: var(--color-text);
     margin: 0;
     padding: 2rem;
+    display: inline-block;
+}
+.content{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
 
 .container {
@@ -27,79 +30,85 @@ h1 {
     background-color: var(--secondary-color);
     padding: 20px;
     border-radius: var(--radius);
-
 }
 
-a.button{
+a.button {
     color: var(--table-content-bg-color--);
     text-decoration: none;
-    display: inline-block;
+    display: block;
     margin-bottom: 1rem;
-}
-
-a.button:hover{
-    text-decoration: underline;
-    color: var(--color-primary-hover);
-}
-
-form {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-}
-
-input[type="text"] {
-    flex: 1;
-    padding: 0.65rem 1rem;
-    border: 1px solid #d1d5db;
-    border-radius: var(--border-radius);
-    font-family: inherit;
-    transition: var(--transition);
-    background: white;
-}
-
-input[type="text"]:focus {
-    outline: none;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 2px rgba(52, 178, 51, 0.2);
-}
-
-button {
-    background: var(--color-primary);
-    color: white;
+    background-color: var(--primary-color--);
+    color: var(--table-content-bg-color--);
     border: none;
-    padding: 0.65rem 1.2rem;
-    border-radius: var(--border-radius);
+    border-radius: var(--radius);
+    padding: 0.5rem 1rem;
     cursor: pointer;
-    transition: var(--transition);
-    font-weight: 600;
+}
+
+a.button:hover {
+    background-color: var(--primary-color--);
+}
+input:hover{
+    background-color: var(--table-content-bg-color--);
+}
+input[type="submit"]{
+    background-color: var(--primary-color--);
+    color: var(--table-content-bg-color--);
+    border: none;
+    border-radius: var(--radius);
+    padding: 0.5rem 1rem;
+    
+}
+
+input[type="text"]:hover{
+    background-color: var(--table-content-bg-color--);
+cursor: pointer;
+}
+input[type="submit"]:hover{
+    background-color: var(--table-content-bg-color--);
+    color: black;
+    border: none;
+    padding: 0.5rem 1rem;
+    
+}
+
+
+
+button,a.button {
+    text-decoration: none;
+    background: #6F4E37; /* Custom primary color */
+    color: var(--table-content-bg-color--);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+
 }
 
 button:hover {
-    background: var(--color-primary-hover);
+    background: var(--table-content-bg-color--); /* Custom hover color */
+    color: var(--primary-color--);
+    font-weight: 400px;
 }
 
 .button-link {
     display: inline-block;
     margin-bottom: 1rem;
     padding: 0.6rem 1.2rem;
-    background: var(--color-primary);
+    background: #6F4E37; /* Custom primary color */
     color: white;
-    border-radius: var(--border-radius);
+    border-radius: var(--radius);
     text-decoration: none;
-    transition: var(--transition);
 }
 
 .button-link:hover {
-    background: var(--color-primary-hover);
+    background: #9C6B4F; /* Custom hover color */
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     background: var(--table-content-bg-color--);
-    box-shadow: var(--box-shadow);
-    border-radius: var(--border-radius);
+    border-radius: var(--radius);
     overflow: hidden;
 }
 
@@ -112,7 +121,8 @@ th, td {
 th {
     background-color: var(--primary-color--);
 }
-td{
+
+td {
     background-color: var(--table-content-bg-color--);
 }
 
@@ -124,23 +134,22 @@ tr:last-child td {
     margin-right: 0.5rem;
     text-decoration: none;
     padding: 0.4rem 0.8rem;
-    border-radius: var(--border-radius);
+    border-radius: var(--radius);
     background: #e2e8f0;
-    color: var(--color-text);
-    transition: var(--transition);
+    color: rgb(51, 46, 46);
 }
 
 .actions a:hover {
-    background: var(--color-muted);
+    background: #b3b3b3; /* Custom hover color */
 }
 
 .actions a:first-child {
-    background: var(--color-primary);
+    background: #6F4E37; /* Custom primary color */
     color: white;
 }
 
 .actions a:first-child:hover {
-    background: var(--color-primary-hover);
+    background: #9C6B4F; /* Custom hover color */
 }
 
 .actions a:last-child {
