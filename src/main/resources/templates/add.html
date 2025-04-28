@@ -2,91 +2,75 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Add Coffee</title>
-    <link th:href="@{/static/style.css}" rel="stylesheet" />
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
 </head>
-<body>
-    <a id="button" href="/logout">Logout</a>
+<body><a id="button" href="/logout">Logout</a>
     <form action="/add" method="POST" th:object="${coffee}">
         <h2>Add a New Coffee</h2>
-
+    
         <div>
             <label for="name">Name:</label>
-            <input type="text" th:field="*{name}" id="name" />
+            <input type="text" th:field="*{name}" id="name" required />
             <p class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
         </div>
-
+    
+        <div>
+            <label for="type">Type:</label>
+            <input type="text" th:field="*{type}" id="type" required />
+            <p class="error" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></p>
+        </div>
+    
+        <div>
+            <label for="size">Size:</label>
+            <input type="text" th:field="*{size}" id="size" required />
+            <p class="error" th:if="${#fields.hasErrors('size')}" th:errors="*{size}"></p>
+        </div>
+    
         <div>
             <label for="price">Price:</label>
-            <input type="number" step="0.01" th:field="*{price}" id="price" value="0.01"  />
+            <input type="number" step="0.01" th:field="*{price}" id="price" value="0.01" required />
             <p class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
         </div>
-        
-        <div>
-            <label for="origin">Origin:</label>
-            <input type="text" th:field="*{origin}" id="origin" />
-            <p class="error" th:if="${#fields.hasErrors('origin')}" th:errors="*{origin}"></p>
-        </div>
-        
-        <div>
-            <label for="stock">Stock:</label>
-            <input type="number" th:field="*{stock}" id="stock" value="0" />
-            <p class="error" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"></p>
-        </div>
-        
-
-        <div>
-            <label for="coffeeType">Type</label>
-            <select name="coffeeType" id="coffeeType">
-                <option value="espresso">Espresso</option>
-                <option value="latte">Latte</option>
-                <option value="cappuccino">Cappuccino</option>
-                <option value="flat_white">Flat White</option>
-                <option value="iced_coffee">Iced Coffee</option>
-                <option value="cold_brew">Cold Brew</option>
-                <option value="americano">Americano</option>
-                <option value="macchiato">Macchiato</option>
-                <option value="mocha">Mocha</option>
-                <option value="affogato">Affogato</option>
-            </select>
-        </div>
-
-        <div>
-            <label for="size">Size</label>
-            <select name="size" id="size">
-                <option value="small">Small</option>
-                <option value="medium">Medium</option>
-                <option value="large">Large</option>
-            </select>
-        </div>
-
+    
         <div>
             <label for="roastLevel">Roast Level:</label>
-            <select name="roastLevel" id="roastLevel">
-                <option value="light">Light</option>
-                <option value="medium">Medium</option>
-                <option value="dark">Dark</option>
-            </select>
+            <input type="text" th:field="*{roastLevel}" id="roastLevel" required />
+            <p class="error" th:if="${#fields.hasErrors('roastLevel')}" th:errors="*{roastLevel}"></p>
         </div>
-
+    
+        <div>
+            <label for="origin">Origin:</label>
+            <input type="text" th:field="*{origin}" id="origin" maxlength="100" required />
+            <p class="error" th:if="${#fields.hasErrors('origin')}" th:errors="*{origin}"></p>
+        </div>
+    
+        <div>
+            <label for="stock">Stock:</label>
+            <input type="number" th:field="*{stock}" id="stock" value="0" min="1" required />
+            <p class="error" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"></p>
+        </div>
+    
         <div>
             <label for="isDecaf">Is Decaf:</label>
-            <input type="radio" name="isDecaf" value="true">True</input>
-            <input type="radio" name="isDecaf" value="false">False</input>
+            <input type="radio" name="isDecaf" value="true" th:checked="${coffee.isDecaf}">True
+            <input type="radio" name="isDecaf" value="false" th:checked="${!coffee.isDecaf}">False
         </div>
-
+    
         <div>
             <label for="flavorNotes">Flavor Notes (comma-separated):</label>
-            <input type="text" name="flavorNotes" id="flavorNotes" />
+            <input type="text" th:field="*{flavorNotes}" id="flavorNotes" />
+            <p class="error" th:if="${#fields.hasErrors('flavorNotes')}" th:errors="*{flavorNotes}"></p>
         </div>
-
+    
         <div>
             <label for="brewMethod">Brew Method:</label>
-            <input type="text" name="brewMethod" id="brewMethod" />
+            <input type="text" th:field="*{brewMethod}" id="brewMethod" required />
+            <p class="error" th:if="${#fields.hasErrors('brewMethod')}" th:errors="*{brewMethod}"></p>
         </div>
-
-        <input type="submit" value="Add Coffee" />
+    
+        <input type="submit" onclick="saveCoffeeData()" value="Add Coffee" />
     </form>
-
+    
     <a href="/">Back to List</a>
 </body>
 </html>

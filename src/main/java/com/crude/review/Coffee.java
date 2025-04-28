@@ -15,20 +15,25 @@ import jakarta.validation.constraints.NotNull;
 public class Coffee {
 
     private int id; 
-    @NotBlank(message = "Name cannot be blank")
-    private String name;
-    private String type;
-    private String size;
-    @DecimalMin(value = "0.01", message = "Price must be greater than 0")
-    private double price;
-    private String roastLevel;
-    @Size(max = 100, message = "Origin must be below 100 characters")
-    private String origin;
-    private boolean isDecaf;
-    @Min(value = 1, message = "Stock must be greater than 0")
-    private int stock;
-    private List<String> flavorNotes;
-    private String brewMethod;
+@NotBlank(message = "Name cannot be blank")
+private String name;
+@NotBlank(message = "Type cannot be blank")
+private String type;
+@NotBlank(message = "Size cannot be blank")
+private String size;
+@DecimalMin(value = "0.01", message = "Price must be greater than 0")
+private double price;
+@NotBlank(message = "Roast Level cannot be blank")
+private String roastLevel;
+@Size(max = 100, message = "Origin must be below 100 characters")
+@NotBlank(message = "Origin cannot be blank")
+private String origin;
+private boolean isDecaf;
+@Min(value = 1, message = "Stock must be greater than 0")
+private int stock;
+private List<String> flavorNotes;
+@NotBlank(message = "Brew Method cannot be blank")
+private String brewMethod;
     
     public Coffee() {}
 
