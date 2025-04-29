@@ -160,3 +160,9 @@ tr:last-child td {
 .actions a:last-child:hover {
     background: #be123c;
 }
+
+.error{
+    font-weight: 600;
+    color:#ff0000;
+    font-family: ;
+}
