@@ -26,7 +26,6 @@ private double price;
 @NotBlank(message = "Roast Level cannot be blank")
 private String roastLevel;
 @Size(max = 100, message = "Origin must be below 100 characters")
-@NotBlank(message = "Origin cannot be blank")
 private String origin;
 private boolean isDecaf;
 @Min(value = 1, message = "Stock must be greater than 0")
@@ -34,10 +33,14 @@ private int stock;
 private List<String> flavorNotes;
 @NotBlank(message = "Brew Method cannot be blank")
 private String brewMethod;
+private String profilePicture;
     
     public Coffee() {}
 
-    public Coffee(int id, String name, String type, String size, double price, String roastLevel, String origin, boolean isDecaf, int stock, List<String> flavorNotes, String brewMethod) {
+    public Coffee(int id, String name, String type, String size, 
+    double price, String roastLevel, String origin, boolean isDecaf, 
+    int stock, List<String> flavorNotes, String brewMethod,String profilePicture) {
+        
         this.id = id;
         this.name = name;
         this.type = type;
@@ -48,7 +51,8 @@ private String brewMethod;
         this.isDecaf = isDecaf;
         this.stock = stock;
         this.flavorNotes = flavorNotes;
-        this.brewMethod = brewMethod;
+        this.brewMethod = brewMethod; 
+        this.profilePicture = profilePicture;
     }
 
     public int getId() { return id; }
@@ -62,6 +66,7 @@ private String brewMethod;
     public int getStock() { return stock; }
     public List<String> getFlavorNotes() { return flavorNotes; }
     public String getBrewMethod() { return brewMethod; }
+    public String getProfilePicture() { return profilePicture; }
 
     public void setName(String name) {
         this.name = name;
@@ -105,5 +110,8 @@ private String brewMethod;
 
     public void setId(int id) {
         this.id = id;
+    }
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 }
