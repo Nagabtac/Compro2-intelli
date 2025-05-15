@@ -39,8 +39,10 @@ public class CoffeeController {
             return "redirect:/login"; 
         }
         model.addAttribute("coffees", coffeeList);
-        return "index"; 
+        return "dashboard"; 
     }
+
+
     @GetMapping("/add")
 public String showAddForm(Model model) {
     model.addAttribute("coffee", new Coffee()); 
