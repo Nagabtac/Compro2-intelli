@@ -38,8 +38,31 @@ public class CoffeeController {
         if (currentUser == null) {
             return "redirect:/login"; 
         }
+        return "dashboard"; 
+    }
+
+    @GetMapping("/dashboard")
+    public String getDashboardPage(Model model, HttpSession request) {
+        AppUser currentUser = (AppUser) request.getAttribute("user");
+        if (currentUser == null) {
+            return "redirect:/login"; 
+        }
+        model.addAttribute("coffees", coffeeList);
+        return "dashboard"; 
+    }
+    @GetMapping("/index")
+    public String getIndexPage(Model model, HttpSession request) {
         model.addAttribute("coffees", coffeeList);
         return "index"; 
+    }
+    @PostMapping("/index")
+    public String showIndex(Model model, HttpSession request) {
+        AppUser currentUser = (AppUser) request.getAttribute("user");
+        if (currentUser == null) {
+            return "redirect:/login"; 
+        }
+        model.addAttribute("coffees", coffeeList);
+        return "dashboard"; 
     }
     @GetMapping("/add")
 public String showAddForm(Model model) {
