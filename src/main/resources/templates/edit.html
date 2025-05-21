@@ -75,7 +75,7 @@
             Update Profile Picture:
             <input type="file" name="uploadedFile" id="profilePicture" />
         </label>
-        <p class="error" th:if="${#fields.hasErrors('profilePicture')}" th:errors="*{profilePicture}"></p>
+        <p class="error" th:if="${errorMessage}" th:text="${errorMessage}"></p>
         
         <button type="submit">Update</button>
     </form>
