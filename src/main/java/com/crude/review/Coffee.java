@@ -58,6 +58,22 @@ public class Coffee {
         this.brewMethod = brewMethod;
     }
 
+    public Coffee(int id, String name, String type, String size, double price, String roastLevel, String origin,
+                boolean isDecaf, int stock, List<String> flavorNotes, String brewMethod, String profilePicture) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.size = size;
+        this.price = price;
+        this.roastLevel = roastLevel;
+        this.origin = origin;
+        this.isDecaf = isDecaf;
+        this.stock = stock;
+        this.flavorNotes = flavorNotes;
+        this.brewMethod = brewMethod;
+        this.profilePicture = profilePicture;
+    }
+
     public int getId() { return id; }
     public String getName() { return name; }
     public String getType() { return type; }

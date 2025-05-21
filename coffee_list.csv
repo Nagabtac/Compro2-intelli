@@ -1,4 +1,4 @@
 ID,Name,Type,Size,Price,Roast Level,Origin,IsDecaf,Stock,Flavor Notes,Brew Method,profilePicture
-1,Espresso,Arabica,Small,3.5,Dark,Ethiopia,false,10,Chocolate;Nutty,Espresso,
-2,Latte,Arabica,Medium,4.5,Medium,Brazil,false,8,Creamy;Sweet,Drip,
-3,Nagabtac,Espresso,SMALL,0.01,LIGHT,xxx,false,1,Vanilla;Chocolate,Espresso,1d438efb-46d6-4bd1-a201-25fac5a0002c.jpg
+1,Espresso,Arabica,Small,3.5,Dark,Ethiopia,false,10,Chocolate;Nutty,Espresso,default.jpg
+2,Latte,Arabica,Medium,4.5,Medium,Brazil,false,8,Creamy;Sweet,Drip,default.jpg
+3,dd,Espresso,SMALL,0.01,LIGHT,cc3,false,1,Vanilla;Chocolate;Hazelnut,Espresso,2bc01898-3f30-4575-8043-cd00a98cf101.jpg
