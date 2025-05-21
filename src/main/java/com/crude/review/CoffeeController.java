@@ -8,14 +8,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
-
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class CoffeeController {
@@ -69,19 +72,48 @@ public String showAddForm(Model model) {
     model.addAttribute("coffee", new Coffee()); 
     return "add"; 
 }
-
 @PostMapping("/add")
 public String addCoffee(@Valid @ModelAttribute("coffee") Coffee coffee,
                         BindingResult bindingResult,
-                        Model model) {
+                        Model model,
+                        HttpSession request,
+                        @RequestParam("uploadedFile") MultipartFile profilePicture) {
+    
     if (bindingResult.hasErrors()) {
         model.addAttribute("coffee", coffee);
         return "add";
     }
 
+    // Save the uploaded file if it's not empty
+    if (!profilePicture.isEmpty()) {
+        String path = "data/profile_pictures/";
+        File folder = new File(path);
+
+        // Create folder if it doesn't exist
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
+
+        String fileName = UUID.randomUUID() +
+                profilePicture.getOriginalFilename().substring(profilePicture.getOriginalFilename().lastIndexOf("."));
+
+        try {
+            File destinationFile = new File(folder.getAbsolutePath() + File.separator + fileName);
+            profilePicture.transferTo(destinationFile);
+            coffee.setProfilePicture(fileName);
+        } catch (IOException e) {
+            System.out.println("File upload error: " + e.getMessage());
+        }
+    }
+
     coffee.setId(coffeeList.size() + 1);
     coffeeList.add(coffee);
-    csvDataService.saveToCsv(coffeeList); 
+    csvDataService.saveToCsv(coffeeList);
+
+    AppUser currentUser = (AppUser) request.getAttribute("user");
+    if (currentUser == null) {
+        return "redirect:/login";
+    }
 
     return "redirect:/";
 }

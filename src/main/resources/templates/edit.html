@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Edit Coffee</title>
@@ -7,29 +7,79 @@
 </head>
 <body>
     <a id="button" href="/logout">Logout</a>
-    <form action="/update" method="post">
-        <input type="hidden" name="id" th:value="${coffee.id}">
+    <form action="/update" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" th:value="${coffee.id}" />
     
-        <label>Name: <input type="text" name="name" th:value="${coffee.name}" required></label><br>
-        <label>Type: <input type="text" name="type" th:value="${coffee.type}" required></label><br>
-        <label>Size: <input type="text" name="size" th:value="${coffee.size}" required></label><br>
-        <label>Price: <input type="number" step="0.01" name="price" th:value="${coffee.price}" required></label><br>
+        <label>
+            Name: 
+            <input type="text" name="name" th:value="${coffee.name}" required />
+        </label>
+        <br />
         
-        <label>Roast Level: <input type="text" name="roastLevel" th:value="${coffee.roastLevel}"></label><br>
-        <label>Origin: <input type="text" name="origin" th:value="${coffee.origin}" maxlength="100"></label><br>
-        <label>Decaf: 
-            <input type="radio" name="isDecaf" value="true" th:checked="${coffee.isDecaf}"> Yes
-            <input type="radio" name="isDecaf" value="false" th:checked="${!coffee.isDecaf}"> No
-        </label><br>
+        <label>
+            Type: 
+            <input type="text" name="type" th:value="${coffee.type}" required />
+        </label>
+        <br />
         
-        <label>Stock: <input type="number" name="stock" th:value="${coffee.stock}" min="1" required></label><br>
+        <label>
+            Size: 
+            <input type="text" name="size" th:value="${coffee.size}" required />
+        </label>
+        <br />
         
-        <label>Flavor Notes: <input type="text" name="flavorNotes" th:value="${coffee.flavorNotes}" placeholder="Separate notes with commas"></label><br>
-        <label>Brew Method: <input type="text" name="brewMethod" th:value="${coffee.brewMethod}"></label><br>
+        <label>
+            Price: 
+            <input type="number" step="0.01" name="price" th:value="${coffee.price}" required />
+        </label>
+        <br />
         
-        <button onclick="saveCoffeeData()" type="submit">Update</button>
+        <label>
+            Roast Level: 
+            <input type="text" name="roastLevel" th:value="${coffee.roastLevel}" />
+        </label>
+        <br />
+        
+        <label>
+            Origin: 
+            <input type="text" name="origin" th:value="${coffee.origin}" maxlength="100" />
+        </label>
+        <br />
+        
+        <label>
+            Decaf: 
+            <input type="radio" name="isDecaf" value="true" th:checked="${coffee.isDecaf}" /> Yes
+            <input type="radio" name="isDecaf" value="false" th:checked="${!coffee.isDecaf}" /> No
+        </label>
+        <br />
+        
+        <label>
+            Stock: 
+            <input type="number" name="stock" th:value="${coffee.stock}" min="1" required />
+        </label>
+        <br />
+        
+        <label>
+            Flavor Notes: 
+            <input type="text" name="flavorNotes" th:value="${coffee.flavorNotes}" placeholder="Separate notes with commas" />
+        </label>
+        <br />
+        
+        <label>
+            Brew Method: 
+            <input type="text" name="brewMethod" th:value="${coffee.brewMethod}" />
+        </label>
+        <br />
+        
+        <label>
+            Update Profile Picture:
+            <input type="file" name="uploadedFile" id="profilePicture" />
+        </label>
+        <p class="error" th:if="${#fields.hasErrors('profilePicture')}" th:errors="*{profilePicture}"></p>
+        
+        <button type="submit">Update</button>
     </form>
     
-<a href="/">Back to List</a>
+    <a href="/">Back to List</a>
 </body>
 </html>

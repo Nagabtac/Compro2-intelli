@@ -7,7 +7,7 @@
 <body>
     <a href="dashboard">Dashboard</a>
     <a id="button" href="/logout">Logout</a>
-    <form action="/add" method="POST" th:object="${coffee}">
+    <form action="/add" enctype="multipart/form-data" method="POST" th:object="${coffee}">
         <h2>Add a New Coffee</h2>
     
         <div>
@@ -108,8 +108,10 @@
             </select>
             <p class="error" th:if="${#fields.hasErrors('brewMethod')}" th:errors="*{brewMethod}"></p>
         </div>
+
+        <input type="file" name="uploadedFile" id="profilePicture"/>
+        <p class="error" th:if="${#fields.hasErrors('profilePicture')}" th:errors="*{profilePicture}"></p>
         
-    
         <input type="submit" onclick="saveCoffeeData()" value="Add Coffee" />
     </form>
     

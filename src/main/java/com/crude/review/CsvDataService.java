@@ -13,7 +13,7 @@ public class CsvDataService {
                 FileWriter csvWriter = new FileWriter(CSV_FILE_PATH);
     
         
-                csvWriter.append("ID,Name,Type,Size,Price,Roast Level,Origin,IsDecaf,Stock,Flavor Notes,Brew Method\n");
+                csvWriter.append("ID,Name,Type,Size,Price,Roast Level,Origin,IsDecaf,Stock,Flavor Notes,Brew Method,profilePicture\n");
     
     
                 for (Coffee coffee : coffeeList) {
@@ -31,7 +31,9 @@ public class CsvDataService {
                     String flavorNotesStr = String.join(";", coffee.getFlavorNotes());
                     csvWriter.append(escapeCsvField(flavorNotesStr)).append(",");
     
-                    csvWriter.append(escapeCsvField(coffee.getBrewMethod())).append("\n");
+                    csvWriter.append(escapeCsvField(coffee.getBrewMethod())).append(",");
+                    csvWriter.append(escapeCsvField(coffee.getProfilePicture())).append("\n");
+
                 }
     
                 
