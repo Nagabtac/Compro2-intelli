@@ -44,7 +44,7 @@ public class CoffeeController {
         if (currentUser == null) {
             return "redirect:/login"; 
         }
-        return "dashboard"; 
+        return "redirect:/dashboard"; 
     }
 
     @GetMapping("/dashboard")
@@ -95,26 +95,40 @@ public String addCoffee(@Valid @ModelAttribute("coffee") Coffee coffee,
         return "add";
     }
 
-    // Save the uploaded file if it's not empty
-    if (!profilePicture.isEmpty()) {
-        String path = "data/profile_pictures/";
-        File folder = new File(path);
+    // Validate that an image file is provided
+    if (profilePicture == null || profilePicture.isEmpty()) {
+        bindingResult.rejectValue("profilePicture", "error.coffee", "Please upload an image for the coffee.");
+        model.addAttribute("coffee", coffee);
+        return "add";
+    }
 
-        // Create folder if it doesn't exist
-        if (!folder.exists()) {
-            folder.mkdirs();
-        }
+    // Validate file type
+    String contentType = profilePicture.getContentType();
+    if (contentType == null || !contentType.startsWith("image/")) {
+        bindingResult.rejectValue("profilePicture", "error.coffee", "Please upload a valid image file.");
+        model.addAttribute("coffee", coffee);
+        return "add";
+    }
 
-        String fileName = UUID.randomUUID() +
-                profilePicture.getOriginalFilename().substring(profilePicture.getOriginalFilename().lastIndexOf("."));
+    String path = "data/profile_pictures/";
+    File folder = new File(path);
 
-        try {
-            File destinationFile = new File(folder.getAbsolutePath() + File.separator + fileName);
-            profilePicture.transferTo(destinationFile);
-            coffee.setProfilePicture(fileName);
-        } catch (IOException e) {
-            System.out.println("File upload error: " + e.getMessage());
-        }
+    // Create folder if it doesn't exist
+    if (!folder.exists()) {
+        folder.mkdirs();
+    }
+
+    String fileName = UUID.randomUUID() +
+            profilePicture.getOriginalFilename().substring(profilePicture.getOriginalFilename().lastIndexOf("."));
+
+    try {
+        File destinationFile = new File(folder.getAbsolutePath() + File.separator + fileName);
+        profilePicture.transferTo(destinationFile);
+        coffee.setProfilePicture(fileName);
+    } catch (IOException e) {
+        bindingResult.rejectValue("profilePicture", "error.coffee", "Failed to upload image. Please try again.");
+        model.addAttribute("coffee", coffee);
+        return "add";
     }
 
     coffee.setId(coffeeList.size() + 1);
@@ -126,7 +140,7 @@ public String addCoffee(@Valid @ModelAttribute("coffee") Coffee coffee,
         return "redirect:/login";
     }
 
-    return "redirect:/";
+    return "redirect:/catalog";
 }
 
 
@@ -145,7 +159,18 @@ public String addCoffee(@Valid @ModelAttribute("coffee") Coffee coffee,
     }
 
     @PostMapping("/update")
-    public String updateCoffee(@RequestParam int id, @RequestParam String name, @RequestParam String type, @RequestParam String size, @RequestParam double price,@RequestParam String roastLevel, @RequestParam String origin, @RequestParam boolean isDecaf, @RequestParam int stock, @RequestParam List<String> flavorNotes, @RequestParam String brewMethod) {
+    public String updateCoffee(@RequestParam int id, 
+                             @RequestParam String name, 
+                             @RequestParam String type, 
+                             @RequestParam String size, 
+                             @RequestParam double price,
+                             @RequestParam String roastLevel, 
+                             @RequestParam String origin, 
+                             @RequestParam boolean isDecaf, 
+                             @RequestParam int stock, 
+                             @RequestParam List<String> flavorNotes, 
+                             @RequestParam String brewMethod,
+                             @RequestParam(value = "uploadedFile", required = false) MultipartFile profilePicture) {
         for (Coffee coffee : coffeeList) {
             if (coffee.getId() == id) {
                 coffee.setName(name);
@@ -159,11 +184,34 @@ public String addCoffee(@Valid @ModelAttribute("coffee") Coffee coffee,
                 coffee.setFlavorNotes(flavorNotes);
                 coffee.setBrewMethod(brewMethod);
                 
+                // Handle file upload if a new file is provided
+                if (profilePicture != null && !profilePicture.isEmpty()) {
+                    String path = "data/profile_pictures/";
+                    File folder = new File(path);
+
+                    // Create folder if it doesn't exist
+                    if (!folder.exists()) {
+                        folder.mkdirs();
+                    }
+
+                    String fileName = UUID.randomUUID() +
+                            profilePicture.getOriginalFilename().substring(profilePicture.getOriginalFilename().lastIndexOf("."));
+
+                    try {
+                        File destinationFile = new File(folder.getAbsolutePath() + File.separator + fileName);
+                        profilePicture.transferTo(destinationFile);
+                        coffee.setProfilePicture(fileName);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        // Continue with the update even if file upload fails
+                    }
+                }
+                
                 break;
             }
         }
         csvDataService.saveToCsv(coffeeList); 
-        return "redirect:/";
+        return "redirect:/catalog";
     }
 
     @GetMapping("/delete")

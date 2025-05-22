@@ -1,4 +1,3 @@
 ID,Name,Type,Size,Price,Roast Level,Origin,IsDecaf,Stock,Flavor Notes,Brew Method,profilePicture
-1,Espresso,Arabica,Small,3.5,Dark,Ethiopia,false,10,[Chocolate;Nutty],Espresso,default.jpg
-2,Latte,Arabica,Medium,4.5,Medium,Brazil,false,8,[Creamy;Sweet],Drip,default.jpg
-3,RAT,Espresso,MEDIUM,0.02,LIGHT,xxx,false,1,Chocolate,Espresso,
+1,Espresso,Arabica,Small,3.5,Dark,Ethiopia,false,10,[Chocolate;Nutty],Espresso,ea93b134-4741-4960-997f-0a5c34a6e563.jpg
+2,Latte,Arabica,Medium,4.5,Medium,Brazil,false,8,Creamy;Sweet,Drip,default.jpg

@@ -2,435 +2,540 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Add Coffee</title>
-<!--    <link th:href="@{/css/style.css}" rel="stylesheet" />-->
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            background-color: #f5f7fa;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            width: 256px;
+            height: 100vh;
+            background-color: #fff;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            z-index: 100;
+        }
+
+        .sidebar.collapsed {
+            width: 60px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .logo svg {
+            margin-right: 10px;
+        }
+
+        .logo span {
+            transition: opacity 0.3s;
+        }
+
+        .sidebar.collapsed .logo span {
+            opacity: 0;
+            display: none;
+        }
+
+        .sidebar.collapsed .menu-item span {
+            opacity: 0;
+            display: none;
+        }
+
+        .menu {
+            padding: 10px;
+            list-style-type: none;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .menu-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .menu-item.active {
+            background-color: #6c38e8;
+            color: white;
+        }
+
+        .menu-item svg {
+            margin-right: 10px;
+            min-width: 24px;
+        }
+
+        .menu-item .arrow {
+            margin-left: auto;
+        }
+
+        .user-profile {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            border-top: 1px solid #eee;
+        }
+
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .user-details {
+            transition: opacity 0.3s;
+        }
+
+        .sidebar.collapsed .user-details {
+            opacity: 0;
+            display: none;
+        }
+
+        /* Main content */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 256px;
+            transition: margin-left 0.3s ease;
+            background-color: #FFF68F;
+        }
+
+        .main-content.expanded {
+            margin-left: 60px;
+        }
+
+        a {
+            text-decoration: none;
+            list-style: none;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .greeting {
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        /* Stats cards */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #e6f7ee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+        }
+
+        .stat-icon.green {
+            background-color: #e6f7ee;
+        }
+
+        .stat-icon.blue {
+            background-color: #e6eef7;
+        }
+
+        .stat-details h3 {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 5px;
+        }
+
+        .stat-details .number {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-details .change {
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .change.up {
+            color: #28a745;
+        }
+
+        .change.down {
+            color: #dc3545;
+        }
+
+        .avatars {
+            display: flex;
+            margin-top: 5px;
+        }
+
+        .avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            margin-right: -8px;
+            border: 2px solid white;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .page-info {
+            font-size: 14px;
+            color: #888;
+            margin-right: 20px;
+        }
+
+        .page-controls {
+            display: flex;
+            align-items: center;
+        }
+
+        .page-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .page-btn.active {
+            background-color: #6c38e8;
+            color: white;
+        }
+
+        .upgrade-card {
+            background: linear-gradient(135deg, #a17fe0, #5d34c3);
+            color: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .upgrade-text {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .upgrade-btn {
+            background-color: white;
+            color: #5d34c3;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 60px;
+            }
+
+            .sidebar .logo span,
+            .sidebar .menu-item span,
+            .sidebar .user-details {
+                opacity: 0;
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 60px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .search-bar {
+                margin-top: 15px;
+            }
+
+            .search-sort {
+                margin-top: 15px;
+                width: 100%;
+            }
+
+            .table-search {
+                flex: 1;
+            }
+        }
+
+        .form-container {
+            background-color: aliceblue;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            border-color: black;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .form-group input[type="submit"] {
+            background-color: #6c38e8;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .form-group input[type="submit"]:hover {
+            background-color: #5d34c3;
+        }
+
+        .error {
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        h1{
+          background-color: #A020F0;
+          color: white;
+        }
+    </style>
 </head>
 <body>
 
-<style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      display: flex;
-      background-color: #f5f7fa;
-    }
-
-    /* Sidebar styles */
-    .sidebar {
-      width: 256px;
-      height: 100vh;
-      background-color: #fff;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      position: fixed;
-      z-index: 100;
-    }
-
-    .sidebar.collapsed {
-      width: 60px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      padding: 20px;
-      font-size: 18px;
-      font-weight: bold;
-      color: #333;
-    }
-
-    .logo svg {
-      margin-right: 10px;
-    }
-
-    .logo span {
-      transition: opacity 0.3s;
-    }
-
-    .sidebar.collapsed .logo span {
-      opacity: 0;
-      display: none;
-    }
-
-    .sidebar.collapsed .menu-item span {
-      opacity: 0;
-      display: none;
-    }
-
-    .menu {
-      padding: 10px;
-      list-style-type: none;
-    }
-
-    .menu-item {
-      display: flex;
-      align-items: center;
-      padding: 10px;
-      margin-bottom: 5px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .menu-item:hover {
-      background-color: #f0f0f0;
-    }
-
-    .menu-item.active {
-      background-color: #6c38e8;
-      color: white;
-    }
-
-    .menu-item svg {
-      margin-right: 10px;
-      min-width: 24px;
-    }
-
-    .menu-item .arrow {
-      margin-left: auto;
-    }
-
-    .user-profile {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      padding: 20px;
-      display: flex;
-      align-items: center;
-      border-top: 1px solid #eee;
-    }
-
-    .user-profile img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      margin-right: 10px;
-    }
-
-    .user-details {
-      transition: opacity 0.3s;
-    }
-
-    .sidebar.collapsed .user-details {
-      opacity: 0;
-      display: none;
-    }
-
-    /* Main content */
-    .main-content {
-      flex: 1;
-      padding: 20px;
-      margin-left: 256px;
-      transition: margin-left 0.3s ease;
-    }
-
-    .main-content.expanded {
-      margin-left: 60px;
-    }
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
-    }
-
-    .greeting {
-      font-size: 24px;
-      font-weight: 500;
-    }
-
-    /* Stats cards */
-    .stats-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      margin-bottom: 30px;
-    }
-
-    .stat-card {
-      background-color: white;
-      border-radius: 12px;
-      padding: 20px;
-      display: flex;
-      align-items: center;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .stat-icon {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background-color: #e6f7ee;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 20px;
-    }
-
-    .stat-icon.green {
-      background-color: #e6f7ee;
-    }
-
-    .stat-icon.blue {
-      background-color: #e6eef7;
-    }
-
-    .stat-details h3 {
-      font-size: 14px;
-      color: #888;
-      margin-bottom: 5px;
-    }
-
-    .stat-details .number {
-      font-size: 28px;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-
-    .stat-details .change {
-      font-size: 12px;
-      display: flex;
-      align-items: center;
-    }
-
-    .change.up {
-      color: #28a745;
-    }
-
-    .change.down {
-      color: #dc3545;
-    }
-
-    .avatars {
-      display: flex;
-      margin-top: 5px;
-    }
-
-    .avatar {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      margin-right: -8px;
-      border: 2px solid white;
-    }
-
-    .pagination {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      margin-top: 20px;
-    }
-
-    .page-info {
-      font-size: 14px;
-      color: #888;
-      margin-right: 20px;
-    }
-
-    .page-controls {
-      display: flex;
-      align-items: center;
-    }
-
-    .page-btn {
-      width: 30px;
-      height: 30px;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 5px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .page-btn.active {
-      background-color: #6c38e8;
-      color: white;
-    }
-
-    .upgrade-card {
-      background: linear-gradient(135deg, #a17fe0, #5d34c3);
-      color: white;
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .upgrade-text {
-      font-size: 16px;
-      margin-bottom: 15px;
-    }
-
-    .upgrade-btn {
-      background-color: white;
-      color: #5d34c3;
-      border: none;
-      border-radius: 20px;
-      padding: 10px 20px;
-      font-weight: 500;
-      cursor: pointer;
-    }
-
-    @media (max-width: 992px) {
-      .sidebar {
-        width: 60px;
-      }
-
-      .sidebar .logo span,
-      .sidebar .menu-item span,
-      .sidebar .user-details {
-        opacity: 0;
-        display: none;
-      }
-
-      .main-content {
-        margin-left: 60px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .stats-container {
-        grid-template-columns: 1fr;
-      }
-
-      .header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .search-bar {
-        margin-top: 15px;
-      }
-
-      .search-sort {
-        margin-top: 15px;
-        width: 100%;
-      }
-
-      .table-search {
-        flex: 1;
-      }
-    }
-</style>
 <div th:replace="fragments/sidebar :: sidebarFragment"></div>
-    <a href="dashboard">Dashboard</a>
-    <a id="button" href="/logout">Logout</a>
-    <form action="/add" enctype="multipart/form-data" method="POST" th:object="${coffee}">
-        <h2>Add a New Coffee</h2>
-    
-        <div>
-            <label for="name">Name:</label>
-            <input type="text" th:field="*{name}" id="name"  />
-            <p class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
-        </div>
-    
-        <div>
-            <label for="type">Type:</label>
-            <select th:field="*{type}" id="type" required>
-                <option value="Espresso">Espresso</option>
-                <option value="Latte">Latte</option>
-                <option value="Cappuccino">Cappuccino</option>
-                <option value="Americano">Americano</option>
-                <option value="Mocha">Mocha</option>
-                <option value="Macchiato">Macchiato</option>
-            </select>
-            <p class="error" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></p>
-        </div>
-        
-        <div>
-            <label for="size">Size:</label>
-            <select th:field="*{size}" id="size" required>
-                <option value="SMALL">SMALL</option>
-                <option value="MEDIUM">MEDIUM</option>
-                <option value="LARGE">LARGE</option>
-                <option value="EXTRA LARGE">EXTRA LARGE</option>
-                <option value="Bathtub">BATHTUB</option>
-                </select>
-            <p class="error" th:if="${#fields.hasErrors('size')}" th:errors="*{size}"></p>
-        </div>
-    
-        <div>
-            <label for="price">Price:</label>
-            <input type="number" step="0.01" th:field="*{price}" id="price" value="0.01"  required/>
-            <p class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
-        </div>
-    
-        <div>
-            <label for="roastLevel">Roast Level:</label>
-            <select th:field="*{roastLevel}" id="roastLevel" required>
-                <option value="LIGHT">LIGHT</option>
-                <option value="MEDIUM">MEDIUM</option>
-                <option value="DARK">DARK</option>
-                </select>
-            <p class="error" th:if="${#fields.hasErrors('roastLevel')}" th:errors="*{roastLevel}"></p>
-        </div>
-    
-        <div>
-            <label for="origin">Origin:</label>
-            <input type="text" th:field="*{origin}" id="origin" maxlength="100"  />
-            <p class="error" th:if="${#fields.hasErrors('origin')}" th:errors="*{origin}"></p>
-        </div>
-    
-        <div>
-            <label for="stock">Stock:</label>
-            <input type="number" th:field="*{stock}" id="stock" value="0" min="1"  required/>
-            <p class="error" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"></p>
-        </div>
-    
-        <div>
-            <label for="isDecaf">Is Decaf:</label>
-            <input type="checkbox" name="isDecaf" value="true" th:checked="${coffee.isDecaf}">True
-            <input type="checkbox" name="isDecaf" value="false" th:checked="${!coffee.isDecaf}">False
-        </div>
-    
-        <div>
-            <label for="flavorNotes">Flavor Notes:</label>
-            <input type="checkbox" th:field="*{flavorNotes}" value="Vanilla" id="flavorVanilla" />
-            <label for="flavorVanilla">Vanilla</label>
-        
-            <input type="checkbox" th:field="*{flavorNotes}" value="Chocolate" id="flavorChocolate" />
-            <label for="flavorChocolate">Chocolate</label>
-        
-            <input type="checkbox" th:field="*{flavorNotes}" value="Hazelnut" id="flavorHazelnut" />
-            <label for="flavorHazelnut">Hazelnut</label>
-        
-            <input type="checkbox" th:field="*{flavorNotes}" value="Caramel" id="flavorCaramel" />
-            <label for="flavorCaramel">Caramel</label>
-        
-            <input type="checkbox" th:field="*{flavorNotes}" value="Almond" id="flavorAlmond" />
-            <label for="flavorAlmond">Almond</label>
-        
-            <input type="checkbox" th:field="*{flavorNotes}" value="Cinnamon" id="flavorCinnamon" />
-            <label for="flavorCinnamon">Cinnamon</label>
-        
-            <p class="error" th:if="${#fields.hasErrors('flavorNotes')}" th:errors="*{flavorNotes}"></p>
-        </div>
-    
-        <div>
-            <label for="brewMethod">Brew Method:</label>
-            <select th:field="*{brewMethod}" id="brewMethod" required>
-                <option value="Espresso">Espresso</option>
-                <option value="French Press">French Press</option>
-                <option value="Drip">Drip</option>
-                <option value="Cold Brew">Cold Brew</option>
-            </select>
-            <p class="error" th:if="${#fields.hasErrors('brewMethod')}" th:errors="*{brewMethod}"></p>
-        </div>
 
-        <input type="file" name="uploadedFile" id="profilePicture"/>
-        <p class="error" th:if="${#fields.hasErrors('profilePicture')}" th:errors="*{profilePicture}"></p>
-        
-        <input type="submit" onclick="saveCoffeeData()" value="Add Coffee" />
-    </form>
+<div class="main-content">
+    <div class="header">
+        <h1>Add a New Coffee</h1>
+    </div>
+
+    <div class="form-container">
+        <form action="/add" enctype="multipart/form-data" method="POST" th:object="${coffee}" onsubmit="return validateForm()">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" th:field="*{name}" id="name" required />
+                <p class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+            </div>
     
+            <div class="form-group">
+                <label for="type">Type:</label>
+                <select th:field="*{type}" id="type" required>
+                    <option value="Espresso">Espresso</option>
+                    <option value="Latte">Latte</option>
+                    <option value="Cappuccino">Cappuccino</option>
+                    <option value="Americano">Americano</option>
+                    <option value="Mocha">Mocha</option>
+                    <option value="Macchiato">Macchiato</option>
+                </select>
+                <p class="error" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></p>
+            </div>
+            
+            <div class="form-group">
+                <label for="size">Size:</label>
+                <select th:field="*{size}" id="size" required>
+                    <option value="SMALL">SMALL</option>
+                    <option value="MEDIUM">MEDIUM</option>
+                    <option value="LARGE">LARGE</option>
+                    <option value="EXTRA LARGE">EXTRA LARGE</option>
+                    <option value="Bathtub">BATHTUB</option>
+                </select>
+                <p class="error" th:if="${#fields.hasErrors('size')}" th:errors="*{size}"></p>
+            </div>
     
-    <a href="/">Back to List</a>
+            <div class="form-group">
+                <label for="price">Price:</label>
+                <input type="number" step="0.01" th:field="*{price}" id="price" value="0.01" required />
+                <p class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
+            </div>
+    
+            <div class="form-group">
+                <label for="roastLevel">Roast Level:</label>
+                <select th:field="*{roastLevel}" id="roastLevel" required>
+                    <option value="LIGHT">LIGHT</option>
+                    <option value="MEDIUM">MEDIUM</option>
+                    <option value="DARK">DARK</option>
+                </select>
+                <p class="error" th:if="${#fields.hasErrors('roastLevel')}" th:errors="*{roastLevel}"></p>
+            </div>
+    
+            <div class="form-group">
+                <label for="origin">Origin:</label>
+                <input type="text" th:field="*{origin}" id="origin" maxlength="100" required />
+                <p class="error" th:if="${#fields.hasErrors('origin')}" th:errors="*{origin}"></p>
+            </div>
+    
+            <div class="form-group">
+                <label for="stock">Stock:</label>
+                <input type="number" th:field="*{stock}" id="stock" value="0" min="1" required />
+                <p class="error" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"></p>
+            </div>
+    
+            <div class="form-group">
+                <label for="isDecaf">Is Decaf:</label>
+                <input type="checkbox" name="isDecaf" value="true" th:checked="${coffee.isDecaf}">True
+                <input type="checkbox" name="isDecaf" value="false" th:checked="${!coffee.isDecaf}">False
+            </div>
+    
+            <div class="form-group">
+                <label for="flavorNotes">Flavor Notes:</label>
+                <div class="flavor-notes-container">
+                    <div class="flavor-note-item">
+                        <input type="checkbox" th:field="*{flavorNotes}" value="Vanilla" id="flavorVanilla" />
+                        <label for="flavorVanilla">Vanilla</label>
+                    </div>
+                    <div class="flavor-note-item">
+                        <input type="checkbox" th:field="*{flavorNotes}" value="Chocolate" id="flavorChocolate" />
+                        <label for="flavorChocolate">Chocolate</label>
+                    </div>
+                    <div class="flavor-note-item">
+                        <input type="checkbox" th:field="*{flavorNotes}" value="Hazelnut" id="flavorHazelnut" />
+                        <label for="flavorHazelnut">Hazelnut</label>
+                    </div>
+                    <div class="flavor-note-item">
+                        <input type="checkbox" th:field="*{flavorNotes}" value="Caramel" id="flavorCaramel" />
+                        <label for="flavorCaramel">Caramel</label>
+                    </div>
+                    <div class="flavor-note-item">
+                        <input type="checkbox" th:field="*{flavorNotes}" value="Almond" id="flavorAlmond" />
+                        <label for="flavorAlmond">Almond</label>
+                    </div>
+                    <div class="flavor-note-item">
+                        <input type="checkbox" th:field="*{flavorNotes}" value="Cinnamon" id="flavorCinnamon" />
+                        <label for="flavorCinnamon">Cinnamon</label>
+                    </div>
+                </div>
+                <p class="error" th:if="${#fields.hasErrors('flavorNotes')}" th:errors="*{flavorNotes}"></p>
+            </div>
+    
+            <div class="form-group">
+                <label for="brewMethod">Brew Method:</label>
+                <select th:field="*{brewMethod}" id="brewMethod" required>
+                    <option value="Espresso">Espresso</option>
+                    <option value="French Press">French Press</option>
+                    <option value="Drip">Drip</option>
+                    <option value="Cold Brew">Cold Brew</option>
+                </select>
+                <p class="error" th:if="${#fields.hasErrors('brewMethod')}" th:errors="*{brewMethod}"></p>
+            </div>
+
+            <div class="form-group">
+                <label for="profilePicture">Coffee Image:</label>
+                <input type="file" name="uploadedFile" id="profilePicture" accept="image/*" required />
+                <p class="error" id="imageError" style="display: none; color: #dc3545;">Please select an image file.</p>
+                <p class="error" th:if="${#fields.hasErrors('profilePicture')}" th:errors="*{profilePicture}"></p>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" id="addCoffee" value="Add Coffee" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<a href="/">Back to List</a>
+
+<script>
+function validateForm() {
+    const imageInput = document.getElementById('profilePicture');
+    const imageError = document.getElementById('imageError');
+    
+    if (!imageInput.files || imageInput.files.length === 0) {
+        imageError.style.display = 'block';
+        return false;
+    }
+    
+    const file = imageInput.files[0];
+    if (!file.type.startsWith('image/')) {
+        imageError.textContent = 'Please select a valid image file.';
+        imageError.style.display = 'block';
+        return false;
+    }
+    
+    imageError.style.display = 'none';
+    return true;
+}
+
+// Clear error message when user selects a file
+document.getElementById('profilePicture').addEventListener('change', function() {
+    document.getElementById('imageError').style.display = 'none';
+});
+</script>
 </body>
 </html>
