@@ -1,5 +1,5 @@
 package com.crude.review;
-import com.crude.review.Coffee;
+import com.crude.review.models.Coffee;
     import org.springframework.stereotype.Service;
     import java.io.FileWriter;
     import java.io.IOException;

@@ -1,5 +1,8 @@
-package com.crude.review;
+package com.crude.review.controllers;
 
+import com.crude.review.models.AppUser;
+import com.crude.review.models.Coffee;
+import com.crude.review.CsvDataService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,7 +26,7 @@ import java.util.UUID;
 @Controller
 public class CoffeeController {
     private List<Coffee> coffeeList = new ArrayList<>();
-    private final CsvDataService csvDataService; 
+    private final CsvDataService csvDataService;
     public CoffeeController(CsvDataService csvDataService) {
         this.csvDataService = csvDataService;
         coffeeList.add(new Coffee(1, "Espresso", "Arabica", "Small", 3.50, "Dark", "Ethiopia", false, 10, Arrays.asList("Chocolate", "Nutty"), "Espresso", "default.jpg"));
@@ -55,6 +58,10 @@ public class CoffeeController {
     }
     @GetMapping("/index")
     public String getIndexPage(Model model, HttpSession request) {
+        AppUser currentUser = (AppUser) request.getAttribute("user");
+        if (currentUser == null) {
+            return "redirect:/login";
+        }
         model.addAttribute("coffees", coffeeList);
         return "index"; 
     }
@@ -65,10 +72,14 @@ public class CoffeeController {
             return "redirect:/login"; 
         }
         model.addAttribute("coffees", coffeeList);
-        return "dashboard"; 
+        return "index";
     }
     @GetMapping("/add")
-public String showAddForm(Model model) {
+public String showAddForm(Model model, HttpSession request) {
+        AppUser currentUser = (AppUser) request.getAttribute("user");
+        if (currentUser == null) {
+            return "redirect:/login";
+        }
     model.addAttribute("coffee", new Coffee()); 
     return "add"; 
 }
@@ -161,6 +172,19 @@ public String deleteCoffee(@RequestParam int id) {
     csvDataService.saveToCsv(coffeeList); 
     return "redirect:/";
 }
+
+
+    @GetMapping("/catalog")
+    public String viewCatalog(Model model, HttpSession session) {
+        AppUser currentUser = (AppUser) session.getAttribute("user");
+        if (currentUser == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("coffees", coffeeList);
+        return "catalog"; // This maps to catalog.html
+    }
+
+
     @PostMapping("/save")
 @ResponseBody
 public String saveCoffees() {

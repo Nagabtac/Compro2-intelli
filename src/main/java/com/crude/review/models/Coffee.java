@@ -1,4 +1,4 @@
-package com.crude.review;
+package com.crude.review.models;
 
 import java.util.List;
 import jakarta.validation.constraints.DecimalMin;
